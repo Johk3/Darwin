@@ -1,13 +1,14 @@
 <div *ngIf="user$">
-	<h1>{{user$.name}}</h1>
-
-	<ul [@listStagger]="user$">
-		<div *ngIf="user$.username">
-			<li><strong>type:</strong> {{user$.type}}</li>
-			<li><strong>specie:</strong> {{user$.specie}}</li>
-		</div>
-		<div *ngIf="user$.description">
-			<li><strong>disease:</strong> {{user$.disease}}</li>
-		</div>
-	</ul>
+	<li *ngFor="let us of user$">
+	<h1>{{us.name}}</h1>
+		<ul [@listStagger]="us">
+			<div *ngIf="us.type">
+				<li><strong>type:</strong> {{us.type}}</li>
+				<li><strong>specie:</strong> {{us.specie}}</li>
+			</div>
+			<div *ngIf="us.disease">
+				<li><strong>disease:</strong> {{us.disease}}</li>
+			</div>
+		</ul>
+	</li>
 </div>

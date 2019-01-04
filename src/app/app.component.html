@@ -1,5 +1,7 @@
 <div id="container">
-  <app-sidebar></app-sidebar>
+	<div *ngIf="edited">
+  		<app-sidebar></app-sidebar>
+  	</div>
 
   <div id="content">
     <router-outlet></router-outlet>

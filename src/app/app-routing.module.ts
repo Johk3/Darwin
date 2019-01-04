@@ -5,11 +5,17 @@ import { DetailsComponent } from "./details/details.component";
 import { PostsComponent } from "./posts/posts.component";
 import { SettingsComponent } from "./settings/settings.component";	
 import { RegisterComponent } from "./register/register.component";
+import { PostComponent } from "./post/post.component";
+import { HomeComponent } from "./home/home.component";
 
 
 const routes: Routes = [
 	{
 	path: "",
+	component: HomeComponent
+	},
+	{
+	path: "home",
 	component: UsersComponent
 	},
 	{
@@ -23,6 +29,14 @@ const routes: Routes = [
 	{
 	path: 'settings',
 	component: SettingsComponent
+	},
+	{
+	path: 'register',
+	component: RegisterComponent
+	},
+	{
+	path: "post/:id",
+	component: PostComponent
 	}
 ];
 

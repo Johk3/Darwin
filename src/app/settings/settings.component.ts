@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppComponent } from "../app.component"
 
 @Component({
   selector: 'app-settings',
@@ -7,7 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SettingsComponent implements OnInit {
 
-  constructor() { }
+  constructor(public datway: AppComponent) { 
+  	// This is to toggle the sidebar
+    datway.edited = true; 
+  }
 
   ngOnInit() {
   }

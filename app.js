@@ -1,95 +1,138 @@
 var express  = require('express');
-var app      = express();                               // create our app w/ express
-var mongoose = require('mongoose');                     // mongoose for mongodb
+var cors = require('cors');
+var app      = express();                               // create our app w/ express                // mongoose for mongodb
 var morgan = require('morgan');             // log requests to the console (express4)
 var bodyParser = require('body-parser');    // pull information from HTML POST (express4)
 var methodOverride = require('method-override'); // simulate DELETE and PUT (express4)
-var port = 8080;
+var port = 1234;
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database("bob_bacteria.db");
 
-mongoose.connect('mongodb://localhost:27017/datinxy');     // connect to mongoDB database on modulus.io
-
-app.use(express.static(__dirname + '/public'));                 // set the static files location /public/img will be /img for users
+app.use(express.static(__dirname + '/src'));                 // set the static files location /public/img will be /img for users
 app.use(morgan('dev'));                                         // log every request to the console
 app.use(bodyParser.urlencoded({'extended':'true'}));            // parse application/x-www-form-urlencoded
 app.use(bodyParser.json());                                     // parse application/json
 app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse application/vnd.api+json as json
 app.use(methodOverride());
+app.use(cors());
 
 app.listen(port);
 console.log(`App is listening on port ${port}`)
 
-var User = mongoose.model("User", {
-	text: String,
-	username: String,
-	password: String,
-	email: String,
-	firstname: String,
-	lastname: String
+
+// get all users
+app.get('/api/items', function(req, res) {
+    o = new Object()
+    var items = 'items';
+    o[items] = []
+
+    let sql = `SELECT * FROM bob
+           ORDER BY name`;
+    db.all(sql, [], (err, rows) => {
+      if (err) {
+        throw err;
+      }
+      rows.forEach((row) => {
+        if(row.name != ""){
+            o[items].push(row)
+        }
+      });
+      res.json(o[items])
+      // res.json(o)
+    });
 });
 
-    // get all users
-    app.get('/api/users', function(req, res) {
 
-        // use mongoose to get all users in the database
+app.get('/api/posts', function(req, res) {
+
+    // use mongoose to get all users in the database
+    Post.find(function(err, posts) {
+
+        // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+        if (err)
+            res.send(err)
+
+        res.json(posts); // return all users in JSON format
+    });
+});
+
+app.get('/api/posts/:id', function(req, res) {
+
+    // use mongoose to get all users in the database
+    Post.findById(req.params.id, function(err, post) {
+
+        // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+        if (err)
+            res.send(err)
+
+        res.json(post); // return all users in JSON format
+    });
+});
+
+app.get('/api/items/:id', function(req, res) {
+    o = new Object()
+    var items = 'items';
+    o[items] = []
+    // use mongoose to get all users in the database
+    // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+    let sql = `SELECT * FROM bob
+           ORDER BY name`;
+    db.all(sql, [], (err, rows) => {
+      if (err) {
+        throw err;
+      }
+      rows.forEach((row) => {
+        if(row.id == req.params.id){
+            o[items].push(row)
+        }
+      });
+      res.json(o[items])
+      // res.json(o)
+    });
+});
+
+// create user and send back all users after creation
+app.post('/api/users', function(req, res) {
+
+    // create a user, information comes from AJAX request from Angular
+    // Text means story/description
+    User.create({
+        text: req.body.text,
+		username: req.body.username,
+		password: req.body.password,
+		email: req.body.email,
+		firstname: req.body.firstname,
+		lastname: req.body.lastname,
+    }, function(err, user) {
+        if (err)
+            res.send(err);
+
+        // get and return all the users after you create another
         User.find(function(err, users) {
-
-            // if there is an error retrieving, send the error. nothing after res.send(err) will execute
             if (err)
                 res.send(err)
-
-            res.json(users); // return all users in JSON format
+            res.json(users);
         });
     });
 
-    app.get('/api/users/:id', function(req, res) {
+});
 
-        // use mongoose to get all users in the database
-        User.findById(req.params.id, function(err, user) {
-            // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+// delete a user
+app.delete('/api/users/:user_id', function(req, res) {
+    User.remove({
+        _id : req.params.user_id
+    }, function(err, todo) {
+        if (err)
+            res.send(err);
+
+        // get and return all the users after you create another
+        User.find(function(err, users) {
             if (err)
                 res.send(err)
-
-            res.json(user); // return all users in JSON format
+            res.json(users);
         });
     });
-
-    // create user and send back all users after creation
-    app.post('/api/users', function(req, res) {
-
-        // create a user, information comes from AJAX request from Angular
-        User.create({
-            text : req.body.text,
-            done : false
-        }, function(err, user) {
-            if (err)
-                res.send(err);
-
-            // get and return all the users after you create another
-            User.find(function(err, users) {
-                if (err)
-                    res.send(err)
-                res.json(users);
-            });
-        });
-
-    });
-
-    // delete a user
-    app.delete('/api/users/:user_id', function(req, res) {
-        User.remove({
-            _id : req.params.user_id
-        }, function(err, todo) {
-            if (err)
-                res.send(err);
-
-            // get and return all the users after you create another
-            User.find(function(err, users) {
-                if (err)
-                    res.send(err)
-                res.json(users);
-            });
-        });
-    });
+});
 
 
 /*var bodyParser = require("mongodb");

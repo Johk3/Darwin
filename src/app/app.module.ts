@@ -12,7 +12,32 @@ import { HttpClientModule } from "@angular/common/http";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SettingsComponent } from './settings/settings.component';
 import { RegisterComponent } from './register/register.component';
+import { CookieService } from 'ngx-cookie-service';
 
+import {
+    SocialLoginModule,
+    AuthServiceConfig,
+    GoogleLoginProvider,
+    FacebookLoginProvider,
+} from "angular-6-social-login";
+import { PostComponent } from './post/post.component';
+import { HomeComponent } from './home/home.component';
+
+export function getAuthServiceConfigs() {
+  let config = new AuthServiceConfig(
+      [
+        {
+          id: FacebookLoginProvider.PROVIDER_ID,
+          provider: new FacebookLoginProvider("Your-Facebook-app-id")
+        },
+        {
+          id: GoogleLoginProvider.PROVIDER_ID,
+          provider: new GoogleLoginProvider("231545563547-rkl6ob327fdt35gtahamcc0m165kfq48.apps.googleusercontent.com")
+        }
+      ]
+  )
+  return config;
+}
 
 @NgModule({
   declarations: [
@@ -22,15 +47,23 @@ import { RegisterComponent } from './register/register.component';
     UsersComponent,
     DetailsComponent,
     SettingsComponent,
-    RegisterComponent
+    RegisterComponent,
+    PostComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    SocialLoginModule
   ],
-  providers: [],
+  providers: [ CookieService,
+  {
+    provide: AuthServiceConfig,
+    useFactory: getAuthServiceConfigs
+  }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

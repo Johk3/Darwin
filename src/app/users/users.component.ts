@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from "../data.service";
+import { AppComponent } from "../app.component"
 import { Observable } from "rxjs";
 import { trigger,style,transition,animate,keyframes,query,stagger } from '@angular/animations';
 
@@ -24,10 +25,11 @@ import { trigger,style,transition,animate,keyframes,query,stagger } from '@angul
   ]
 })
 export class UsersComponent implements OnInit {
-
 	users$: Object;
-
-  constructor(private data: DataService) { 
+ 
+  constructor(private data: DataService, public datway: AppComponent) {
+    // This is to toggle the sidebar
+    datway.edited = true; 
   }
 
   ngOnInit() {

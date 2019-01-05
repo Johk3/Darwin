@@ -16,6 +16,8 @@ import sqlite3
 import time
 import argparse
 import wikipedia
+import random
+import string
 
 BLUE, RED, WHITE, YELLOW, MAGENTA, GREEN, END = ['\33[94m', '\033[91m', '\33[97m', '\33[93m', '\033[1;35m',
                                                  '\033[1;32m', '\033[0m']
@@ -46,7 +48,7 @@ parser.add_argument("--bacteria", type=str,
                     help="Search your bacteria using this argument")
 parser.add_argument("--virus", type=str,
                     help="Search your virus using this argument")
-parser.add_argument("--protozoa", type=str,k
+parser.add_argument("--protozoa", type=str,
                     help="Search your protozoa using this argument")
 parser.add_argument("--fungi", type=str,
                     help="Search your fungi using this argument")
@@ -73,13 +75,14 @@ class virus:
         self.speciesv = speciesv
         self.common_name_diseasev = common_name_diseasev
         self.groupv = groupv
+        id = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(16))
         cur.execute("SELECT * FROM bob WHERE lower(name)=?", (self.namev.lower(),))
         exists = cur.fetchone()
         if not exists and self.groupv:
-            cur.execute("INSERT into bob VALUES (?, ?, ?, ?)", (self.namev, self.typev, self.speciesv, self.groupv))
+            cur.execute("INSERT into bob VALUES (?, ?, ?, ?, ?, null)", (self.namev, self.typev, self.speciesv, self.groupv, id))
             conn.commit()
         if not exists and not self.groupv:
-            cur.execute("INSERT into bob VALUES (?, ?, ?, null)", (self.namev, self.typev, self.speciesv))
+            cur.execute("INSERT into bob VALUES (?, ?, ?, null, ?, null)", (self.namev, self.typev, self.speciesv, id))
             conn.commit()
         else:
             pass
@@ -107,8 +110,9 @@ class fungi:
         self.speciesf = speciesf
         cur.execute("SELECT * FROM bob WHERE lower(name)=?", (self.namef.lower(),))
         exists = cur.fetchone()
+        id = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(16))
         if not exists and self.speciesf:
-            cur.execute("INSERT into bob VALUES (?, ?, ?, null)", (self.namef, self.typef, self.speciesf))
+            cur.execute("INSERT into bob VALUES (?, ?, ?, null, ?, null)", (self.namef, self.typef, self.speciesf, id))
             conn.commit()
         else:
             pass
@@ -139,9 +143,10 @@ class protozoa:
         self.speciesp = speciesp
         self.common_name_diseasep = common_name_diseasep
         cur.execute("SELECT * FROM bob WHERE lower(name)=?", (self.namep.lower(),))
+        id = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(16))
         exists = cur.fetchone()
         if not exists:
-            cur.execute("INSERT into bob VALUES (?, ?, ?, null)", (self.namep, self.typep, self.speciesp))
+            cur.execute("INSERT into bob VALUES (?, ?, ?, null, ?, null)", (self.namep, self.typep, self.speciesp, id))
             conn.commit()
         else:
             pass
@@ -171,8 +176,9 @@ class bacteria:
         self.common_name_diseaseb = common_name_diseaseb
         cur.execute("SELECT * FROM bob WHERE lower(name)=?", (self.nameb.lower(),))
         exists = cur.fetchone()
+        id = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.digits) for _ in range(16))
         if not exists:
-            cur.execute("INSERT into bob VALUES (?, ?, ?, null)", (self.nameb, self.typeb, self.speciesb))
+            cur.execute("INSERT into bob VALUES (?, ?, ?, null, ?, null)", (self.nameb, self.typeb, self.speciesb, id))
             conn.commit()
         else:
             pass

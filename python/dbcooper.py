@@ -1,6 +1,8 @@
 import sqlite3
 import time
 import wikipedia
+import random
+import string
 
 print("Updating database...")
 

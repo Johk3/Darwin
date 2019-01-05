@@ -26,10 +26,10 @@ import { HomeComponent } from './home/home.component';
 export function getAuthServiceConfigs() {
   let config = new AuthServiceConfig(
       [
-        {
+/*        {
           id: FacebookLoginProvider.PROVIDER_ID,
           provider: new FacebookLoginProvider("Your-Facebook-app-id")
-        },
+        },*/
         {
           id: GoogleLoginProvider.PROVIDER_ID,
           provider: new GoogleLoginProvider("231545563547-rkl6ob327fdt35gtahamcc0m165kfq48.apps.googleusercontent.com")

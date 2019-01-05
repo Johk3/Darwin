@@ -3,6 +3,7 @@ import { DataService } from "../data.service";
 import { AppComponent } from "../app.component"
 import { Observable } from "rxjs";
 import { trigger,style,transition,animate,keyframes,query,stagger } from '@angular/animations';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-users',
@@ -26,13 +27,21 @@ import { trigger,style,transition,animate,keyframes,query,stagger } from '@angul
 })
 export class UsersComponent implements OnInit {
 	users$: Object;
+  cookieValue = 'UNKNOWN';
  
-  constructor(private data: DataService, public datway: AppComponent) {
+  constructor(private data: DataService, public datway: AppComponent, private cookieService: CookieService) {
     // This is to toggle the sidebar
     datway.edited = true; 
   }
 
   ngOnInit() {
+    const cookieExists: boolean = this.cookieService.check('token');
+    if(!cookieExists){
+       let cookie =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+       this.cookieService.set( 'token', cookie );
+       this.cookieValue = this.cookieService.get('token');
+    }
+    console.log(this.cookieValue);
   	this.data.getUsers().subscribe(
   			data => this.users$ = data
   		)

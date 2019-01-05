@@ -1,6 +1,16 @@
-<h1>
-     Sign in
-</h1>
- 
-<button (click)="socialSignIn('facebook')">Sign in with Facebook</button>
-<button (click)="socialSignIn('google')">Sign in with Google</button>   
+<style type="text/css">
+	.infinity {
+	  position: fixed;
+	  top: 8px;
+	  right: 16px;
+	  z-index: 999;
+	  font-size: 22px;
+	   width: auto;
+	}
+</style>
+
+<button (click)="socialSignIn('google')" class="third infinity"><strong>Login</strong></button>
+        
+
+<!-- <button (click)="socialSignIn('facebook')" class="button1">Sign in with Facebook</button>
+<button (click)="socialSignIn('google')" class="button1">Sign in with Google</button>   --> 

@@ -31,10 +31,6 @@ const routes: Routes = [
 	component: SettingsComponent
 	},
 	{
-	path: 'register',
-	component: RegisterComponent
-	},
-	{
 	path: "post/:id",
 	component: PostComponent
 	}

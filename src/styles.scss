@@ -2,7 +2,7 @@
 body {
      margin: 0;
      background: #FDFFFC;
-     font-family: 'Montserrat', sans-serif;
+     font-family: 'Titillium Web', sans-serif;
      height: 100vh;
 }
 
@@ -23,6 +23,9 @@ body {
                 border-radius: 8px;
                 padding: 20px;
                 margin-bottom: 8px;
+                p {
+                    font-family: 'Roboto Mono', sans-serif;
+                }
         
                 a {
                     font-size: 1.5em;

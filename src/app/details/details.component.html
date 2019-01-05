@@ -25,14 +25,14 @@
 	<div>
 		<ul [@listStagger]="us" class="container">
 			<div *ngIf="us.type">
-				<li><strong>Type:</strong> {{us.type}}</li>
-				<li><strong>Specie:</strong> {{us.specie}}</li>
+				<li><strong>Type:</strong> <p>{{us.type}}</p></li>
+				<li><strong>Specie:</strong> <p>{{us.specie}}</p></li>
 			</div>
 			<div *ngIf="us.disease">
-				<li><strong>Disease:</strong> {{us.disease}}</li>
+				<li><strong>Disease:</strong> <p>{{us.disease}}</p></li>
 			</div>
 			<div *ngIf="us.description">
-				<li><strong>Description:</strong>{{us.description}}</li>
+				<li><strong>Description:</strong><p>{{us.description}}</p></li>
 			</div>
 		</ul>
 		<ul class="chat">

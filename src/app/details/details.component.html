@@ -2,24 +2,12 @@
 	<li *ngFor="let us of user$">
 	<h1>{{us.name}}</h1>
 	<style type="text/css">
-		.all{
-			overflow:auto;
-		}
 		.container {
-		  width: 40%;
+		  width: 100%;
 		  padding: 10px 10px 20px 10px;
 		  border: 1px solid #BFBFBF;
 		  background-color: white;
 		  box-shadow: 10px 10px 5px #aaaaaa;
-		  float: left;
-		}
-		.chat {
-		  width: 50%;
-		  padding: 10px 10px 20px 10px;
-		  border: 1px solid #BFBFBF;
-		  background-color: white;
-		  box-shadow: 10px 10px 5px #aaaaaa;
-		  float:right;
 		}
 	</style>
 	<div>
@@ -35,7 +23,7 @@
 				<li><strong>Description:</strong><p>{{us.description}}</p></li>
 			</div>
 		</ul>
-		<ul class="chat">
+		<ul class="container">
 			<h1>Discussion</h1>
 		</ul>
 	</div>

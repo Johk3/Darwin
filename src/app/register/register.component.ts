@@ -4,6 +4,7 @@ import {
     FacebookLoginProvider,
     GoogleLoginProvider
 } from 'angular-6-social-login';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -13,7 +14,11 @@ import {
 })
 export class RegisterComponent implements OnInit {
 
-  constructor( private socialAuthService: AuthService ) {}
+  constructor( private socialAuthService: AuthService, private cookieService: CookieService ) {}
+  	cookieValue = 'UNKNOWN';
+  	registered = false;
+  	img = this.cookieService.get("image");
+  	name = this.cookieService.get("name");
 
 	public socialSignIn(socialPlatform : string) {
 		let socialPlatformProvider;
@@ -27,12 +32,25 @@ export class RegisterComponent implements OnInit {
 		  (userData) => {
 		    // Now sign-in with userData
 		    // ...
-		    console.log(userData);
+		    const cookieExists: boolean = this.cookieService.check('token');
+		    if(!cookieExists){
+		       console.log("Creating new cookie")
+		       let cookie =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+		       this.cookieService.set( 'token', cookie );
+		       this.cookieValue = this.cookieService.get('token');
+		    }
+		    this.cookieService.set( 'authtoken', userData.token );
+		    this.cookieService.set( 'name', userData.name );
+		    this.cookieService.set( 'image', userData.image );
+		    this.registered = true;
 		  }
 		)
   }
 
   ngOnInit() {
-
+  	const accountExists: boolean = this.cookieService.check('authtoken');
+  	if(accountExists){
+  		this.registered = true;
+  	}
 }
 }

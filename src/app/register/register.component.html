@@ -7,10 +7,19 @@
 	  font-size: 22px;
 	   width: auto;
 	}
-</style>
+	img {
+	  border-radius: 50%;
+	  width: 50%;
+	}
 
-<button (click)="socialSignIn('google')" class="third infinity"><strong>Login</strong></button>
-        
+</style>
+<div *ngIf="!registered">
+	<button (click)="socialSignIn('google')" class="infinity third"><strong>Login</strong></button>
+</div>
+<div *ngIf="registered" class="infinity">
+	<h5>Welcome {{name}}</h5>
+	<img src="{{img}}">
+</div>        
 
 <!-- <button (click)="socialSignIn('facebook')" class="button1">Sign in with Facebook</button>
 <button (click)="socialSignIn('google')" class="button1">Sign in with Google</button>   --> 

@@ -41,7 +41,7 @@ export class UsersComponent implements OnInit {
        this.cookieService.set( 'token', cookie );
        this.cookieValue = this.cookieService.get('token');
     }
-    console.log(this.cookieValue);
+    console.log(this.cookieService.getAll());
   	this.data.getUsers().subscribe(
   			data => this.users$ = data
   		)

@@ -7,7 +7,7 @@ var methodOverride = require('method-override'); // simulate DELETE and PUT (exp
 var port = 1234;
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database("bob_bacteria.db");
-var posts = new sqlite3.Database("users")
+var postdb = new sqlite3.Database("posts.db")
 var url = require("url");
 
 app.use(express.static(__dirname + '/src'));                 // set the static files location /public/img will be /img for users
@@ -59,8 +59,34 @@ app.get('/api/posts', function(req, res) {
 });
 
 app.post('/api/message/', function(req, res) {
-    console.log("WORKS")
-    console.log(req.body)
+    let postdata = [req.body.id, req.body.name, req.body.image, req.body.message]
+    let sql = `INSERT INTO main(id, name, image, message) VALUES ("${postdata[0]}", "${postdata[1]}", "${postdata[2]}", "${postdata[3]}")`;
+    postdb.run(sql, function(err){
+        if(err){
+            return console.error(err.message)
+        }
+    })
+});
+
+app.get('/api/message/:id', function(req, res) {
+    o = new Object()
+    var items = 'items';
+    o[items] = []
+
+    let sql = `SELECT * FROM main
+           ORDER BY name`;
+    postdb.all(sql, [], (err, rows) => {
+      if (err) {
+        console.error(err);
+      }
+      rows.forEach((row) => {
+        if(row.id == req.params.id){
+            o[items].push(row)
+        }
+      });
+      res.json(o[items])
+      // res.json(o)
+    });
 });
 
 app.get('/api/posts/:id', function(req, res) {

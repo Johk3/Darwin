@@ -35,9 +35,6 @@ export class PostComponent implements OnInit {
   }
 
   ngOnInit() {
-  	this.data.getPost(this.post$).subscribe(
-  		data => this.post$ = data
-  	)
   }
 
 }

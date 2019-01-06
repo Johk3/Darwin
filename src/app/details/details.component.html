@@ -43,12 +43,16 @@
 
 		div {
 		  border-radius: 5px;
-		  background-color: #f2f2f2;
+		  background-color: white;
 		  padding: 20px;
 		}
 		.hindenberg{
 			display: none;
 			visibility: hidden;
+		}
+		img{
+			border-radius: 50%;
+			width: 3%;
 		}
 
 	</style>
@@ -67,6 +71,13 @@
 		</ul>
 		<ul class="container">
 			<h1 style="color: #5DD39E;">Discussion</h1>
+			<div *ngIf=posts>
+			<div *ngFor="let post of posts" [@listStagger]="posts">
+				<ul class="container">
+					<li><img src="{{post.image}}"><strong>{{post.name}}</strong><p>{{post.message}}</p></li>
+				</ul>
+			</div>
+			</div>
 			<div *ngIf="registered">
 				<h4>Posts</h4>
 				<div>

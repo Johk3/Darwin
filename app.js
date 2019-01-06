@@ -7,6 +7,8 @@ var methodOverride = require('method-override'); // simulate DELETE and PUT (exp
 var port = 1234;
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database("bob_bacteria.db");
+var posts = new sqlite3.Database("users")
+var url = require("url");
 
 app.use(express.static(__dirname + '/src'));                 // set the static files location /public/img will be /img for users
 app.use(morgan('dev'));                                         // log every request to the console
@@ -54,6 +56,11 @@ app.get('/api/posts', function(req, res) {
 
         res.json(posts); // return all users in JSON format
     });
+});
+
+app.post('/api/message/', function(req, res) {
+    console.log("WORKS")
+    console.log(req.body)
 });
 
 app.get('/api/posts/:id', function(req, res) {

@@ -26,13 +26,14 @@ import { CookieService } from 'ngx-cookie-service';
   ]
 })
 export class UsersComponent implements OnInit {
-	users$: Object;
+  users$: Object;
   cookieValue = 'UNKNOWN';
  
   constructor(private data: DataService, public datway: AppComponent, private cookieService: CookieService) {
     // This is to toggle the sidebar
     datway.edited = true; 
   }
+
 
   ngOnInit() {
     const cookieExists: boolean = this.cookieService.check('token');
@@ -41,7 +42,6 @@ export class UsersComponent implements OnInit {
        this.cookieService.set( 'token', cookie );
        this.cookieValue = this.cookieService.get('token');
     }
-    console.log(this.cookieService.getAll());
   	this.data.getUsers().subscribe(
   			data => this.users$ = data
   		)

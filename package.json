@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "start": "concurrently --kill-others \"npm run server\" \"npm run api\"",
-    "api": "node app.js",
+    "api": "nodemon app.js",
     "ng": "ng",
     "server": "ng serve --port 80",
     "build": "ng build",

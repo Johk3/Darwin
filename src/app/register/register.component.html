@@ -1,24 +1,35 @@
 <style type="text/css">
 	.infinity {
-	  position: fixed;
-	  top: 8px;
+	  position: absolute;
+	  top: 3px;
 	  right: 16px;
 	  z-index: 999;
 	  font-size: 22px;
 	   width: auto;
 	}
-	img {
+	.unfinity {
+	  position: absolute;
+	  top: 70px;
+	  right: 16px;
+	  z-index: 9999;
+	  font-size: 22px;
+	   width: 25%;
+	}
+	.img {
 	  border-radius: 50%;
-	  width: 50%;
+	  width: 10%;
 	}
 
 </style>
+<script type="text/javascript">
+</script>
 <div *ngIf="!registered">
-	<button (click)="socialSignIn('google')" class="infinity third"><strong>Login</strong></button>
+	<button (click)="socialSignIn('google')" class="infinity third"><strong>Sign in</strong></button>
 </div>
-<div *ngIf="registered" class="infinity">
-	<h5>Welcome {{name}}</h5>
-	<img src="{{img}}">
+<div *ngIf="registered">
+	<a href="/home"><button (click)="signout()" class="infinity third"><strong>Sign out</strong></button></a>
+	<h5 class="infinity">Welcome {{name}}</h5>
+	<img class="unfinity img" src="{{img}}">
 </div>        
 
 <!-- <button (click)="socialSignIn('facebook')" class="button1">Sign in with Facebook</button>

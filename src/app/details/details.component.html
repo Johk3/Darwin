@@ -9,6 +9,48 @@
 		  background-color: white;
 		  box-shadow: 10px 10px 5px #aaaaaa;
 		}
+		input[type=text] {
+		  width: 100%;
+		  padding: 12px 20px;
+		  margin: 8px 0;
+		  box-sizing: border-box;
+		}
+
+		input[type=text], select {
+		  width: 100%;
+		  padding: 12px 20px;
+		  margin: 8px 0;
+		  display: inline-block;
+		  border: 1px solid #ccc;
+		  border-radius: 4px;
+		  box-sizing: border-box;
+		}
+
+		input[type=submit] {
+		  width: 100%;
+		  background-color: #4CAF50;
+		  color: white;
+		  padding: 14px 20px;
+		  margin: 8px 0;
+		  border: none;
+		  border-radius: 4px;
+		  cursor: pointer;
+		}
+
+		input[type=submit]:hover {
+		  background-color: #45a049;
+		}
+
+		div {
+		  border-radius: 5px;
+		  background-color: #f2f2f2;
+		  padding: 20px;
+		}
+		.hindenberg{
+			display: none;
+			visibility: hidden;
+		}
+
 	</style>
 	<div>
 		<ul [@listStagger]="us" class="container">
@@ -25,6 +67,31 @@
 		</ul>
 		<ul class="container">
 			<h1 style="color: #5DD39E;">Discussion</h1>
+			<div *ngIf="registered">
+				<h4>Posts</h4>
+				<div>
+				  <form action="">
+				  	<input class="hindenberg" type="text" id="name" name="name" value="{{name}}">
+				    <input class="hindenberg" type="text" id="image" name="image" value="{{img}}">
+				    <label for="lname">Post</label>
+				    <input type="text" id="post" name="post" placeholder="Your message" [(ngModel)]="message">
+				  
+				    <input type="submit" value="Submit" (click)="pushMsg()">
+				    <div *ngIf="message_sent && !wait">
+				    	<h5>Posted</h5>
+				    </div>
+				    <div *ngIf="no_message && !wait">
+				    	<h5 style="color: red;">Your message is empty</h5>
+				    </div>
+				    <div *ngIf="wait">
+				    	<h5 style="color: red;">Wait 5 minutes to post</h5>
+				    </div>
+				  </form>
+				</div>
+			</div>
+			<div *ngIf="!registered">
+				<h4>You need to be signed in to post</h4>
+			</div>
 		</ul>
 	</div>
 </div>

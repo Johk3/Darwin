@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SettingsComponent } from './settings/settings.component';
 import { RegisterComponent } from './register/register.component';
 import { CookieService } from 'ngx-cookie-service';
+import { FormsModule } from '@angular/forms';
 
 import {
     SocialLoginModule,
@@ -56,7 +57,8 @@ export function getAuthServiceConfigs() {
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    SocialLoginModule
+    SocialLoginModule,
+    FormsModule
   ],
   providers: [ CookieService,
   {

@@ -96,10 +96,17 @@ export class DetailsComponent implements OnInit {
       }
     }
     this.message_sent = true;
+    var currYear = new Date().getFullYear();
+    var currMonth = new Date().getMonth();
+    var currDay = new Date().getDate();
+    var currHour = new Date().getHours();
+    var currMinute = new Date().getMinutes();
+    var dttime = `${currDay}.${currMonth+1}.${currYear} ${currHour}:${currMinute}`;
     this.data$["name"] = this.name;
     this.data$["image"] = this.img;
     this.data$["message"] = this.message;
     this.data$["id"] = this.id;
+    this.data$["date"] = dttime;
     this.data.postMessage(this.data$).subscribe(
       data => this.data$ = data
     )

@@ -59,8 +59,8 @@ app.get('/api/posts', function(req, res) {
 });
 
 app.post('/api/message/', function(req, res) {
-    let postdata = [req.body.id, req.body.name, req.body.image, req.body.message]
-    let sql = `INSERT INTO main(id, name, image, message) VALUES ("${postdata[0]}", "${postdata[1]}", "${postdata[2]}", "${postdata[3]}")`;
+    let postdata = [req.body.id, req.body.name, req.body.image, req.body.message, req.body.date]
+    let sql = `INSERT INTO main(id, name, image, message, date) VALUES ("${postdata[0]}", "${postdata[1]}", "${postdata[2]}", "${postdata[3]}", "${postdata[4]}")`;
     postdb.run(sql, function(err){
         if(err){
             return console.error(err.message)

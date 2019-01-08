@@ -23,6 +23,7 @@ import {
 } from "angular-6-social-login";
 import { PostComponent } from './post/post.component';
 import { HomeComponent } from './home/home.component';
+import { SearchComponent } from './search/search.component';
 
 export function getAuthServiceConfigs() {
   let config = new AuthServiceConfig(
@@ -50,7 +51,8 @@ export function getAuthServiceConfigs() {
     SettingsComponent,
     RegisterComponent,
     PostComponent,
-    HomeComponent
+    HomeComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,

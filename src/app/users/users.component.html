@@ -1,4 +1,25 @@
+<style type="text/css">
+	.infinity {
+	  position: fixed;
+	  top: 155px;
+	  right: 50px;
+	  z-index: 999;
+	  font-size: 22px;
+	}
+</style>
+
 <h1>Cooper DB</h1>
+<app-search class="infinity"></app-search>
+
+<ul *ngIf="isEmpty(search)" [@listStagger]="search">
+	<h1>Results:</h1>
+	<li *ngFor="let item of search">
+		<a routerLink="/details/{{item.id}}">{{item.name}}</a>
+		<ul>
+			<li>{{item.type}}</li>
+		</ul>
+	</li>
+</ul>
 
 <ul [@listStagger]="users$">
 	<li *ngFor="let user of users$">

@@ -10,6 +10,8 @@ var db = new sqlite3.Database("bob_bacteria.db");
 var postdb = new sqlite3.Database("posts.db")
 var url = require("url");
 
+var found;
+
 app.use(express.static(__dirname + '/src'));                 // set the static files location /public/img will be /img for users
 app.use(morgan('dev'));                                         // log every request to the console
 app.use(bodyParser.urlencoded({'extended':'true'}));            // parse application/x-www-form-urlencoded
@@ -21,6 +23,13 @@ app.use(cors());
 app.listen(port);
 console.log(`App is listening on port ${port}`)
 
+function isEmpty(obj) {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
+}
 
 // get all users
 app.get('/api/items', function(req, res) {
@@ -67,6 +76,41 @@ app.post('/api/message/', function(req, res) {
         }
     })
 });
+
+app.post('/api/search/', function(req, res) {
+    k = new Object()
+    var items = 'items';
+    k[items] = []
+
+    message = req.body.message.toLowerCase();
+    let sql = `SELECT * FROM bob
+           ORDER BY name`;
+    db.all(sql, [], (err, rows) => {
+      if (err) {
+        throw err;
+      }
+      rows.forEach((row) => {
+        let name = row.name.toLowerCase();
+        if(name.includes(message)){
+            k[items].push(row)
+        }
+      });
+      if(k[items]){
+        found = k[items]
+      }else{
+        found = false;
+      }
+    });
+});
+
+app.get('/api/search/', function(req, res){
+    if(isEmpty(found)){
+        found = false
+    }else{
+        res.json(found)
+        found = false
+    }
+})
 
 app.get('/api/message/:id', function(req, res) {
     o = new Object()

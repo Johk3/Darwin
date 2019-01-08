@@ -32,5 +32,11 @@ export class DataService {
   postMessage(stuff){
     return this.http.post(`http://localhost:1234/api/message/`, stuff, httpOptions);
   }
+  searchService(message){
+    return this.http.post('http://localhost:1234/api/search/', message, httpOptions);
+  }
+  searchGet(){
+    return this.http.get('http://localhost:1234/api/search/');
+  }
 
 }

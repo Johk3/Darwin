@@ -35,16 +35,19 @@ export class UsersComponent implements OnInit {
     datway.edited = true; 
   }
 
-  public isEmpty() {
-    for(var key in this.search) {
-        if(this.search.hasOwnProperty(key))
-            return false;
+  public getSearch(run){
+    if(run){
+      console.log("yee")
+      this.search = Object;
+      this.data.searchGet().subscribe(
+        data => this.search = data
+      )
+    }else{
+      this.search = false;
     }
-    return true;
   }
 
   ngOnInit() {
-    this.search = Object;
     const cookieExists: boolean = this.cookieService.check('token');
     if(!cookieExists){
        let cookie =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
@@ -54,9 +57,6 @@ export class UsersComponent implements OnInit {
   	this.data.getUsers().subscribe(
   			data => this.users$ = data
   		)
-    this.data.searchGet().subscribe(
-      data => this.search = data
-    )
   }
 
 }

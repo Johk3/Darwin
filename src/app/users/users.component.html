@@ -11,7 +11,7 @@
 <h1>Cooper DB</h1>
 <app-search class="infinity"></app-search>
 
-<ul *ngIf="isEmpty(search)" [@listStagger]="search">
+<ul *ngIf="search" [@listStagger]="search">
 	<h1>Results:</h1>
 	<li *ngFor="let item of search">
 		<a routerLink="/details/{{item.id}}">{{item.name}}</a>
@@ -21,7 +21,7 @@
 	</li>
 </ul>
 
-<ul [@listStagger]="users$">
+<ul *ngIf="!search" [@listStagger]="users$">
 	<li *ngFor="let user of users$">
 		<a routerLink="/details/{{user.id}}">{{user.name}}</a>
 		<ul>

@@ -23,14 +23,6 @@ app.use(cors());
 app.listen(port);
 console.log(`App is listening on port ${port}`)
 
-function isEmpty(obj) {
-    for(var key in obj) {
-        if(obj.hasOwnProperty(key))
-            return false;
-    }
-    return true;
-}
-
 // get all users
 app.get('/api/items', function(req, res) {
     o = new Object()
@@ -95,21 +87,12 @@ app.post('/api/search/', function(req, res) {
             k[items].push(row)
         }
       });
-      if(k[items]){
-        found = k[items]
-      }else{
-        found = false;
-      }
+      found = k[items]
     });
 });
 
 app.get('/api/search/', function(req, res){
-    if(isEmpty(found)){
-        found = false
-    }else{
-        res.json(found)
-        found = false
-    }
+    res.json(found)
 })
 
 app.get('/api/message/:id', function(req, res) {

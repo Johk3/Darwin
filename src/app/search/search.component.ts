@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from "../data.service";
+import { UsersComponent } from "../users/users.component";
 
 @Component({
   selector: 'app-search',
@@ -8,24 +9,20 @@ import { DataService } from "../data.service";
 })
 export class SearchComponent implements OnInit {
   checknum = 0;
-  constructor(private data: DataService) { 
-  }
-
-  public wait(ms){
-   var start = new Date().getTime();
-   var end = start;
-   while(end < start + ms) {
-     end = new Date().getTime();
-	}
+  constructor(private data: DataService, private users: UsersComponent) { 
   }
 
   public searchFor(message){
+  	if(message.length == 0){
+  		this.users.getSearch(false)
+  	}
   	if(message.length >= 3 && this.checknum == 0){
   		message = {message}
   		this.data.searchService(message).subscribe(
   			data => message = data
   		)
   		this.checknum++
+  		this.users.getSearch(true)
   	}else{
   		this.checknum = 0
   	}

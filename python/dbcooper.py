@@ -11,27 +11,22 @@ import re
 
 print("Updating database...")
 
-url = "https://en.wikipedia.org/wiki/List_of_virus_species"
+url = "https://en.wikipedia.org/wiki/List_of_clinically_important_bacteria"
 page = request.urlopen(url)
 soup = bs4(page.read())
 
 data = soup.findAll("a", {"class": "mw-redirect"})
 textdata = []
 i = 0
-for value in data:
-    sup = bs4("<div>{}</div>".format(value))
-    if i >= 3:
-        try:
-            textdata.append(sup.find("a", {"class": "mw-redirect"}).text)
-        except Exception:
-            print("exception")
-            pass
-    i += 1
+types = []
 
-print(textdata)
+for value in data:
+    if value.text.strip() != "List of human diseases associated with infectious pathogens" and value.text != "list of viruses":
+        print(value.text)
+        textdata.append(value.text)
 
 start = time.time()
-conn = sqlite3.connect('viruses.db')
+conn = sqlite3.connect('bacterias.db')
 cur = conn.cursor()
 
 cur.execute("SELECT * FROM main")
@@ -45,9 +40,9 @@ for text in textdata:
             id = re.sub(r'\W+', '', id)
             description = wikipedia.summary(text.lower(), sentences=7)
             if description:
-                cur.execute(sql, (text, "virus", "null", "null", id, description))
+                cur.execute(sql, (text, "Bacteria", "null", "null", id, description))
             else:
-                cur.execute(sql, (text, "virus", "null", "null", id, "null"))
+                cur.execute(sql, (text, "Bacteria", "null", "null", id, "null"))
             print(text)
         except Exception as e:
             print("Error code:\n{}".format(e))

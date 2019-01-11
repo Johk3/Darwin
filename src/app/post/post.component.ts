@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { ActivatedRoute } from "@angular/router";
 import { trigger,style,transition,animate,keyframes,query,stagger } from '@angular/animations';
 import { AppComponent } from "../app.component"
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-post',

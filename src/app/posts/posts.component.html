@@ -6,8 +6,8 @@
   border: 2px solid #028090;
   font-size: 28px;
   position: absolute;
-  top: 120px;
-  right: 16px;
+  top: 0px;
+  right: auto;
   z-index: 999;
 }
 	.button {
@@ -22,7 +22,7 @@
 </style>
 
 <div *ngIf="registered">
-	<button routerLink="post-page" class="button"><strong>Post</strong></button>
+	<button (click)="btnClick();" class="button"><strong>Post</strong></button>
 </div>
 <div *ngIf="!registered">
 	<button style="font-size: 20px;" class="button"><strong>Sign in to post</strong></button>

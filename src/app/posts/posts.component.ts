@@ -3,6 +3,7 @@ import { DataService } from "../data.service";
 import { Observable } from "rxjs";
 import { trigger,style,transition,animate,keyframes,query,stagger } from '@angular/animations';
 import { AppComponent } from "../app.component"
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-posts',
@@ -28,12 +29,15 @@ export class PostsComponent implements OnInit {
 	
 	posts$: Object;
 
-  constructor(private data: DataService, public datway: AppComponent) { 
+  constructor(private data: DataService, public datway: AppComponent, private cookieService: CookieService) { 
     // This is to toggle the sidebar
     datway.edited = true; 
   }
 
+  registered: boolean = this.cookieService.check('authtoken');
+
   ngOnInit() {
+    this.registered = this.cookieService.check('authtoken');
   }
 
 }

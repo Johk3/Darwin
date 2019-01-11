@@ -24,6 +24,7 @@ import {
 import { PostComponent } from './post/post.component';
 import { HomeComponent } from './home/home.component';
 import { SearchComponent } from './search/search.component';
+import { PostPageComponent } from './post-page/post-page.component';
 
 export function getAuthServiceConfigs() {
   let config = new AuthServiceConfig(
@@ -52,7 +53,8 @@ export function getAuthServiceConfigs() {
     RegisterComponent,
     PostComponent,
     HomeComponent,
-    SearchComponent
+    SearchComponent,
+    PostPageComponent
   ],
   imports: [
     BrowserModule,

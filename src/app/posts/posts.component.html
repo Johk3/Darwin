@@ -1,9 +1,39 @@
 <h1>Posts</h1>
+<style type="text/css">
+.button {
+  background-color: white;
+  color: black;
+  border: 2px solid #028090;
+  font-size: 28px;
+  position: absolute;
+  top: 120px;
+  right: 16px;
+  z-index: 999;
+}
+	.button {
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
 
+.button:hover {
+  background-color: #028090; /* Green */
+  color: white;
+}
+</style>
+
+<div *ngIf="registered">
+	<button routerLink="post_page" class="button"><strong>Post</strong></button>
+</div>
+<div *ngIf="!registered">
+	<button style="font-size: 20px;" class="button"><strong>Sign in to post</strong></button>
+</div>
+
+<div *ngIf="posts$">
 <ul [@listStagger]="posts$">
 	<li *ngFor="let post of posts$">
 		<a routerLink="/post/{{post.id}}">{{post.title}}</a>
 		
 		<p>{{post.description}}</p>
 	</li>
-</ul>
+</ul>	
+</div>

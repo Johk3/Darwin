@@ -18,25 +18,25 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   getUsers(){
-  	return this.http.get('http://localhost:1234/api/items')
+  	return this.http.get('http://deltasiv.com:1234/api/items')
   }
 
   getUser(userId){
-  	return this.http.get('http://localhost:1234/api/items/' + userId)
+  	return this.http.get('http://deltasiv.com:1234/api/items/' + userId)
   }
 
   getPosts(postName){
-  	return this.http.get('http://localhost:1234/api/message/' + postName)
+  	return this.http.get('http://deltasiv.com:1234/api/message/' + postName)
   }
 
   postMessage(stuff){
-    return this.http.post(`http://localhost:1234/api/message/`, stuff, httpOptions);
+    return this.http.post(`http://deltasiv.com:1234/api/message/`, stuff, httpOptions);
   }
   searchService(message){
-    return this.http.post('http://localhost:1234/api/search/', message, httpOptions);
+    return this.http.post('http://deltasiv.com:1234/api/search/', message, httpOptions);
   }
   searchGet(){
-    return this.http.get('http://localhost:1234/api/search/');
+    return this.http.get('http://deltasiv.com:1234/api/search/');
   }
 
 }

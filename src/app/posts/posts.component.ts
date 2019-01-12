@@ -38,12 +38,14 @@ export class PostsComponent implements OnInit {
   registered: boolean = this.cookieService.check('authtoken');
 
   btnClick= function () {
-    console.log("works")
     this.router.navigateByUrl('/post-page');
   };
 
   ngOnInit() {
     this.registered = this.cookieService.check('authtoken');
+    this.data.getAllPosts().subscribe(
+      data => this.posts$ = data
+    )
   }
 
 }

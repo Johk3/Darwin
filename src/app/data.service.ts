@@ -28,6 +28,9 @@ export class DataService {
   getPosts(postName){
   	return this.http.get('http://localhost:1234/api/message/' + postName)
   }
+  getAllPosts(){
+    return this.http.get('http://localhost:1234/api/messages/')
+  }
 
   postMessage(stuff){
     return this.http.post(`http://localhost:1234/api/message/`, stuff, httpOptions);

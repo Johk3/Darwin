@@ -19,6 +19,10 @@
   background-color: #028090; /* Green */
   color: white;
 }
+img{
+	border-radius: 50%;
+	width: 5%;
+}
 </style>
 
 <div *ngIf="registered">
@@ -28,12 +32,11 @@
 	<button style="font-size: 20px;" class="button"><strong>Sign in to post</strong></button>
 </div>
 
-<div *ngIf="posts$">
 <ul [@listStagger]="posts$">
 	<li *ngFor="let post of posts$">
-		<a routerLink="/post/{{post.id}}">{{post.title}}</a>
+		<a routerLink="/details/{{post.id}}">{{post.subject}}<img src="{{post.image}}"></a>
 		
-		<p>{{post.description}}</p>
+		<p *ngIf="post.message.length >= 70">{{post.message.substring(0,70)}}...</p>
+		<p *ngIf="post.message.length < 70">{{post.message.substring(0,70)}}</p>
 	</li>
 </ul>	
-</div>

@@ -58,10 +58,31 @@ app.get('/api/posts', function(req, res) {
         res.json(posts); // return all users in JSON format
     });
 });
+app.get('/api/messages/', function(req, res) {
+    o = new Object()
+    var items = 'items';
+    o[items] = []
+    let sql = `SELECT * FROM main
+           ORDER BY name`;
+    postdb.all(sql, [], (err, rows) => {
+      if (err) {
+        console.error(err);
+      }
+      rows.forEach((row) => {
+        if(row.subject != "undefined"){
+            o[items].push(row)
+        }
+      });
+      res.json(o[items])
+    })
+});
 
 app.post('/api/message/', function(req, res) {
-    let postdata = [req.body.id, req.body.name, req.body.image, req.body.message, req.body.date]
-    let sql = `INSERT INTO main(id, name, image, message, date) VALUES ("${postdata[0]}", "${postdata[1]}", "${postdata[2]}", "${postdata[3]}", "${postdata[4]}")`;
+    console.log("BODY")
+    console.log(req.body)
+    let postdata = [req.body.id, req.body.name, req.body.image, req.body.message, req.body.date, req.body.subject]
+    let sql = `INSERT INTO main(id, name, image, message, date, subject) VALUES ("${postdata[0]}", "${postdata[1]}", "${postdata[2]}", "${postdata[3]}", "${postdata[4]}", "${postdata[5]}")`;
+    
     postdb.run(sql, function(err){
         if(err){
             return console.error(err.message)
@@ -96,9 +117,9 @@ app.get('/api/search/', function(req, res){
 })
 
 app.get('/api/message/:id', function(req, res) {
-    o = new Object()
+    k = new Object()
     var items = 'items';
-    o[items] = []
+    k[items] = []
 
     let sql = `SELECT * FROM main
            ORDER BY name`;
@@ -107,11 +128,15 @@ app.get('/api/message/:id', function(req, res) {
         console.error(err);
       }
       rows.forEach((row) => {
-        if(row.id == req.params.id){
-            o[items].push(row)
+        if(row.id == req.params.id && row.subject == "undefined"){
+            k[items].push(row)
         }
       });
-      res.json(o[items])
+      if(k[items].length != 0){
+      res.json(k[items])        
+      res.end();
+      }
+
       // res.json(o)
     });
 });
@@ -137,17 +162,37 @@ app.get('/api/items/:id', function(req, res) {
     // if there is an error retrieving, send the error. nothing after res.send(err) will execute
     let sql = `SELECT * FROM bob
            ORDER BY name`;
+    let postsql = `SELECT * FROM main
+       ORDER BY name`;
     db.all(sql, [], (err, rows) => {
       if (err) {
-        throw err;
+        console.error(err);
       }
       rows.forEach((row) => {
         if(row.id == req.params.id){
             o[items].push(row)
         }
       });
-      res.json(o[items])
-      // res.json(o)
+      if(o[items].length != 0){
+        res.json(o[items])
+        res.end();
+      }else{
+      postdb.all(postsql, [], (err, rows) => {
+        if (err) {
+          throw err;
+        }
+        rows.forEach((row) => {
+          if(row.id == req.params.id){
+              o[items].push(row)
+          }
+        });
+        if(o[items].length != 0){
+          res.json(o[items])
+          res.end();
+        }
+        
+      });
+      }
     });
 });
 
@@ -156,24 +201,13 @@ app.post('/api/users', function(req, res) {
 
     // create a user, information comes from AJAX request from Angular
     // Text means story/description
-    User.create({
-        text: req.body.text,
-		username: req.body.username,
-		password: req.body.password,
-		email: req.body.email,
-		firstname: req.body.firstname,
-		lastname: req.body.lastname,
-    }, function(err, user) {
-        if (err)
-            res.send(err);
-
-        // get and return all the users after you create another
-        User.find(function(err, users) {
-            if (err)
-                res.send(err)
-            res.json(users);
-        });
-    });
+    user = new Object()
+    var items = "items"
+    user[items] = []
+    user["name"].push(req.body.name)
+    user["email"].push(req.body.email)
+    user["image"].push(req.body.image)
+    user["token"].push(req.body.token)
 
 });
 

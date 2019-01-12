@@ -105,7 +105,9 @@
 <input type="submit" value="Send Message" (click)="Submit(subject, message)"/>
 <div *ngIf="transaction">
 <h5 *ngIf="nomessage" style="color: red;">Your message or subject is empty.</h5>
-<h5 *ngIf="!nomessage" style="color: green;">Your post has been posted!</h5>
+<h5 *ngIf="toolong" style="color: red;">Your message or subject is too long.</h5>
+<h5 *ngIf="wait" style="color: red;">You need to wait 5 minutes to post again.</h5>
+<h5 *ngIf="!nomessage && !toolong && !wait" style="color: green;">Your post has been posted!</h5>
 </div>
 </li>
 </ul>

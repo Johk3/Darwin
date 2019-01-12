@@ -78,7 +78,6 @@ export class DetailsComponent implements OnInit {
         var timecookie = `${currentHour} ${currentMinute}`;
         this.cookieService.set("post_time", timecookie);
         this.wait = false;
-        return;
       }
       if(this.cookieService.check("post_time")){
         var currHour = new Date().getUTCHours();
@@ -90,7 +89,6 @@ export class DetailsComponent implements OnInit {
           this.wait = false;
         }else{
           this.wait = true;
-          return;
         }
 
       }

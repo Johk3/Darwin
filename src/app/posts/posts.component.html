@@ -35,7 +35,7 @@ img{
 <ul [@listStagger]="posts$">
 	<li *ngFor="let post of posts$">
 		<a routerLink="/details/{{post.id}}">{{post.subject}}<img src="{{post.image}}"></a>
-		
+		<p style="font-size: 10px;">{{post.date}}</p>
 		<p *ngIf="post.message.length >= 70">{{post.message.substring(0,70)}}...</p>
 		<p *ngIf="post.message.length < 70">{{post.message.substring(0,70)}}</p>
 	</li>

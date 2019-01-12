@@ -23,6 +23,19 @@ app.use(cors());
 app.listen(port);
 console.log(`App is listening on port ${port}`)
 
+
+var fs = require('fs');
+var util = require('util');
+var date = new Date();
+datetime = `${date.getYear()}Y-${date.getMonth()}M-${date.getDay()}D--${date.getHours()}H-${date.getMinutes()}M_`
+var log_file = fs.createWriteStream(__dirname + `/clogs/${datetime}debug.log`, {flags : 'w'});
+var log_stdout = process.stdout;
+
+console.log = function(d) { //
+  log_file.write(util.format(d) + '\n');
+  log_stdout.write(util.format(d) + '\n');
+};
+
 // get all users
 app.get('/api/items', function(req, res) {
     o = new Object()
@@ -40,6 +53,8 @@ app.get('/api/items', function(req, res) {
             o[items].push(row)
         }
       });
+      var datetime = new Date();
+      console.log(`/api/items -- ${datetime} --`)
       res.json(o[items])
       // res.json(o)
     });
@@ -52,8 +67,10 @@ app.get('/api/posts', function(req, res) {
     Post.find(function(err, posts) {
 
         // if there is an error retrieving, send the error. nothing after res.send(err) will execute
-        if (err)
-            res.send(err)
+        if (err){
+          var datetime = new Date();
+          console.log(`ERROR: ${err} /api/posts -- ${datetime} --`)
+        }
 
         res.json(posts); // return all users in JSON format
     });
@@ -66,13 +83,15 @@ app.get('/api/messages/', function(req, res) {
            ORDER BY name`;
     postdb.all(sql, [], (err, rows) => {
       if (err) {
-        console.error(err);
+        console.log(err);
       }
       rows.forEach((row) => {
         if(row.subject != "undefined"){
             o[items].push(row)
         }
       });
+      var datetime = new Date();
+      console.log(`/api/message/(GET) -- ${datetime} --`)
       res.json(o[items])
     })
 });
@@ -85,9 +104,11 @@ app.post('/api/message/', function(req, res) {
     
     postdb.run(sql, function(err){
         if(err){
-            return console.error(err.message)
+            return console.log(err)
         }
     })
+    var datetime = new Date();
+    console.log(`/api/message/(POST) -- ${datetime} --`)
 });
 
 app.post('/api/search/', function(req, res) {
@@ -110,10 +131,14 @@ app.post('/api/search/', function(req, res) {
       });
       found = k[items]
     });
+      var datetime = new Date();
+      console.log(`/api/search/(POST) -- ${datetime} --`)
 });
 
 app.get('/api/search/', function(req, res){
     res.json(found)
+    var datetime = new Date();
+    console.log(`/api/items/(GET) -- ${datetime} --`)
 })
 
 app.get('/api/message/:id', function(req, res) {
@@ -136,7 +161,8 @@ app.get('/api/message/:id', function(req, res) {
       res.json(k[items])        
       res.end();
       }
-
+      var datetime = new Date();
+      console.log(`/api/message/${req.params.id} -- ${datetime} --`)
       // res.json(o)
     });
 });
@@ -158,8 +184,10 @@ app.get('/api/items/:id', function(req, res) {
     o = new Object()
     var items = 'items';
     o[items] = []
-    // use mongoose to get all users in the database
-    // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+
+    var datetime = new Date();
+    console.log(`/api/items/${req.params.id} -- ${datetime} --`)
+
     let sql = `SELECT * FROM bob
            ORDER BY name`;
     let postsql = `SELECT * FROM main

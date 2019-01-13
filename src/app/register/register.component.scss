@@ -172,10 +172,11 @@ p {
 
 //BUTTON 5
 .fifth {
-  border-color: $purple;
+  border-color: #88D498;
+  background: #01BAEF;
   // border: 0;
   border-radius: 0;
-  color: $purple;
+  color: black;
   position: relative;
   overflow: hidden;
   z-index: 1;
@@ -190,7 +191,7 @@ p {
     transform: translateX(-50%);
     width: 0;
     height: 100%;
-    background: $purple;
+    background: #1A936F;
     z-index: -1;
     transition: width 150ms ease-in-out;
   }

@@ -1,9 +1,7 @@
+<br>
 <h1>Posts</h1>
 <style type="text/css">
 .button {
-  background-color: #02C39A;
-  color: black;
-  border: 2px solid #02C39A;
   font-size: 28px;
   position: absolute;
   top: 0px;
@@ -26,10 +24,10 @@ img{
 </style>
 
 <div *ngIf="registered">
-	<button (click)="btnClick();" class="button"><strong>Post</strong></button>
+	<button (click)="btnClick();" class="button fifth"><strong>Post</strong></button>
 </div>
 <div *ngIf="!registered">
-	<button style="font-size: 20px;" class="button"><strong>Sign in to post</strong></button>
+	<button style="font-size: 20px;" class="button fifth"><strong>Sign in to post</strong></button>
 </div>
 
 <ul [@listStagger]="posts$">

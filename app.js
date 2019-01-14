@@ -8,6 +8,7 @@ var port = 1234;
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database("bob_bacteria.db");
 var postdb = new sqlite3.Database("posts.db")
+var userdb = new sqlite3.Database("users.db")
 var url = require("url");
 
 var found;
@@ -109,6 +110,43 @@ app.post('/api/message/', function(req, res) {
     })
     var datetime = new Date();
     console.log(`/api/message/(POST) -- ${datetime} --`)
+});
+
+app.post('/api/user/', function(req, res) {
+    console.log("USER LOGIN")
+    var datetime = new Date();
+    console.log(req.body.email)
+    let exists = false
+    let sql = `SELECT * FROM users
+           ORDER BY name`;
+    userdb.all(sql, [], (err, rows) => {
+      if (err) {
+        console.log(err);
+      }
+      rows.forEach((row) => {
+        if(row.email == req.body.email){
+            var datetime = new Date();
+            exists = true
+            console.log(`USER EXISTS -- ${datetime} --`)
+            return res.end();
+        }
+      });
+      if(!exists){
+      var datetime = new Date();
+      console.log(`NEW USER ${req.body.email} -- ${datetime} --`)
+      let postdata = [req.body.email, req.body.image, req.body.name, req.body.token, req.body.id, req.body.idToken, datetime]
+      sql = `INSERT INTO users(email, image, name, token, id, idtoken, date) VALUES ("${postdata[0]}", "${postdata[1]}", "${postdata[2]}", "${postdata[3]}", "${postdata[4]}", "${postdata[5]}", "${datetime}")`;
+      
+      userdb.run(sql, function(err){
+          if(err){
+              return console.log(err)
+          }
+      })
+      var datetime = new Date();
+      console.log(`/api/user/(POST) -- ${datetime} --`)
+      res.end()
+    }
+    })
 });
 
 app.post('/api/search/', function(req, res) {

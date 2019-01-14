@@ -41,5 +41,8 @@ export class DataService {
   searchGet(){
     return this.http.get('http://deltasiv.com:1234/api/search/');
   }
+  newUser(details){
+    return this.http.post(`http://localhost:1234/api/user/`, details, httpOptions);
+  }
 
 }

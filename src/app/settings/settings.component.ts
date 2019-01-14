@@ -20,7 +20,6 @@ export class SettingsComponent implements OnInit {
   }
 
   ngOnInit() {
-  	console.log(this.cookieService.getAll())
   	this.img = this.cookieService.get("image")
   	this.name = this.cookieService.get("name")
   	this.email = this.cookieService.get("email")

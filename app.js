@@ -9,6 +9,7 @@ var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database("bob_bacteria.db");
 var postdb = new sqlite3.Database("posts.db")
 var userdb = new sqlite3.Database("users.db")
+var virusesdb = new sqlite3.Database("viruses.db")
 var url = require("url");
 
 var found;
@@ -57,9 +58,35 @@ app.get('/api/items', function(req, res) {
       var datetime = new Date();
       console.log(`/api/items -- ${datetime} --`)
       res.json(o[items])
+      res.end()
       // res.json(o)
     });
 });
+
+app.get('/api/viruses', function(req, res) {
+    o = new Object()
+    var items = 'items';
+    o[items] = []
+
+    let sql = `SELECT * FROM main
+           ORDER BY name`;
+    virusesdb.all(sql, [], (err, rows) => {
+      if (err) {
+        throw err;
+      }
+      rows.forEach((row) => {
+        if(row.name != ""){
+            o[items].push(row)
+        }
+      });
+      var datetime = new Date();
+      console.log(`/api/viruses -- ${datetime} --`)
+      res.json(o[items])
+      res.end()
+      // res.json(o)
+    });
+});
+
 
 
 app.get('/api/posts', function(req, res) {
@@ -255,6 +282,24 @@ app.get('/api/items/:id', function(req, res) {
         if(o[items].length != 0){
           res.json(o[items])
           res.end();
+        }else{
+
+        virusesdb.all(postsql, [], (err, rows) => {
+          if (err) {
+            throw err;
+          }
+          rows.forEach((row) => {
+            if(row.id == req.params.id){
+                o[items].push(row)
+            }
+          });
+          if(o[items].length != 0){
+            res.json(o[items])
+            res.end();
+          }
+          
+        });
+
         }
         
       });

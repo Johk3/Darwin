@@ -29,10 +29,22 @@ export class UsersComponent implements OnInit {
   users$: Object;
   cookieValue = 'UNKNOWN';
   search: Object;
+  viruses: Object;
+  viruscheck: boolean;
 
   constructor(private data: DataService, public datway: AppComponent, private cookieService: CookieService) {
     // This is to toggle the sidebar
     datway.edited = true; 
+  }
+  public home(){
+    this.viruscheck = false;
+  }
+
+  public virusesFunc(){
+    this.viruscheck = true
+    this.data.getViruses().subscribe(
+      data => this.viruses = data
+    )
   }
 
   public getSearch(run){

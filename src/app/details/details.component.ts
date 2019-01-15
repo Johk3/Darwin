@@ -54,46 +54,26 @@ export class DetailsComponent implements OnInit {
       return this.no_message = true;
     }
     let admin = this.cookieService.get("name")
-    if(admin == "top vidsfin"){
-/*      if(!this.cookieService.check("post_time")){
-        var currentHour = new Date().getUTCHours();
-        var currentMinute = new Date().getUTCMinutes();
-        var timecookie = `${currentHour} ${currentMinute}`;
-        this.cookieService.set("post_time", timecookie);
+    if(this.cookieService.check("post_time")){
+      var currHour = new Date().getUTCHours();
+      var currMinute = new Date().getUTCMinutes();
+      var timecookiec = this.cookieService.get("post_time");
+      let prevtime = timecookiec.split(" ").map(function (val) { return +val; });
+      if(currHour - prevtime[0] > 0 || currMinute - prevtime[1] > 5){
+        this.cookieService.delete("post_time");
+        this.wait = false;
+      }else{
         this.wait = true;
         return;
-      }*/
-      console.log("You are privileged");
-      if(this.cookieService.check("post_time")){
-        var currHour = new Date().getUTCHours();
-        var currMinute = new Date().getUTCMinutes();
-        var timecookiec = this.cookieService.get("post_time");
-        let prevtime = timecookiec.split(" ").map(function (val) { return +val; });
+      }
 
-      }
-    }else{
-      if(!this.cookieService.check("post_time")){
-        var currentHour = new Date().getUTCHours();
-        var currentMinute = new Date().getUTCMinutes();
-        var timecookie = `${currentHour} ${currentMinute}`;
-        this.cookieService.set("post_time", timecookie);
-        this.wait = false;
-        return;
-      }
-      if(this.cookieService.check("post_time")){
-        var currHour = new Date().getUTCHours();
-        var currMinute = new Date().getUTCMinutes();
-        var timecookiec = this.cookieService.get("post_time");
-        let prevtime = timecookiec.split(" ").map(function (val) { return +val; });
-        if(currHour - prevtime[0] > 0 || currMinute - prevtime[1] > 5){
-          this.cookieService.delete("post_time");
-          this.wait = false;
-        }else{
-          this.wait = true;
-          return;
-        }
-
-      }
+    }
+    if(!this.cookieService.check("post_time")){
+      var currentHour = new Date().getUTCHours();
+      var currentMinute = new Date().getUTCMinutes();
+      var timecookie = `${currentHour} ${currentMinute}`;
+      this.cookieService.set("post_time", timecookie);
+      this.wait = false;
     }
     this.message_sent = true;
     var currYear = new Date().getFullYear();

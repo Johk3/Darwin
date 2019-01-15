@@ -6,6 +6,7 @@ import {
 } from 'angular-6-social-login';
 import { CookieService } from 'ngx-cookie-service';
 import { ActivatedRoute, RouterModule, Routes } from "@angular/router";
+import { DataService } from "../data.service";
 declare var angular: any;
 
 
@@ -16,11 +17,12 @@ declare var angular: any;
 })
 export class RegisterComponent implements OnInit {
 
-  constructor( private socialAuthService: AuthService, private cookieService: CookieService, private route: RouterModule ) {}
+  constructor( private socialAuthService: AuthService, private cookieService: CookieService, private route: RouterModule, private data: DataService ) {}
   	cookieValue = 'UNKNOWN';
   	registered = false;
   	img = this.cookieService.get("image");
   	name = this.cookieService.get("name");
+  	user$: object;
 
   	public signout(){
   		this.cookieService.delete("email");
@@ -49,10 +51,16 @@ export class RegisterComponent implements OnInit {
 		       this.cookieValue = this.cookieService.get('token');
 		    }
 		    this.cookieService.set( 'authtoken', userData.token );
+		    this.cookieService.set( 'id', userData.id )
+		    this.cookieService.set( 'idtoken',userData.idToken  )
 		    this.cookieService.set( 'name', userData.name );
 		    this.cookieService.set( 'image', userData.image );
+		    this.cookieService.set( 'email', userData.email )
 		    if(this.cookieService.check("authtoken")){
 		    	this.registered = true;
+		    	this.data.newUser(userData).subscribe(
+		    		data => this.user$ = data
+		    	)
 		    }
 		    this.img = this.cookieService.get("image");
   			this.name = this.cookieService.get("name");

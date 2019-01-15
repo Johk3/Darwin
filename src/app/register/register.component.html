@@ -24,12 +24,11 @@
 <script type="text/javascript">
 </script>
 <div *ngIf="!registered">
-	<button (click)="socialSignIn('google')" class="infinity third"><strong>Sign in</strong></button>
+	<button (click)="socialSignIn('google')" class="infinity fifth"><strong>Sign in</strong></button>
 </div>
 <div *ngIf="registered">
-	<a href="/home"><button (click)="signout()" class="infinity third"><strong>Sign out</strong></button></a>
+	<a href="/home"><button (click)="signout()" class="infinity fifth"><strong>Sign out</strong></button></a>
 	<h5 class="infinity">Welcome {{name}}</h5>
-	<img class="unfinity img" src="{{img}}">
 </div>        
 
 <!-- <button (click)="socialSignIn('facebook')" class="button1">Sign in with Facebook</button>

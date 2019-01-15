@@ -21,12 +21,19 @@ export class DataService {
   	return this.http.get('http://localhost:1234/api/items')
   }
 
+  getViruses(){
+    return this.http.get('http://localhost:1234/api/viruses')
+  }
+
   getUser(userId){
   	return this.http.get('http://localhost:1234/api/items/' + userId)
   }
 
   getPosts(postName){
   	return this.http.get('http://localhost:1234/api/message/' + postName)
+  }
+  getAllPosts(){
+    return this.http.get('http://localhost:1234/api/messages/')
   }
 
   postMessage(stuff){
@@ -37,6 +44,9 @@ export class DataService {
   }
   searchGet(){
     return this.http.get('http://localhost:1234/api/search/');
+  }
+  newUser(details){
+    return this.http.post(`http://localhost:1234/api/user/`, details, httpOptions);
   }
 
 }

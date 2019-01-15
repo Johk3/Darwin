@@ -143,13 +143,13 @@ p {
 
 //BUTTON 3
 .third {
-  border-color: #011627;
-  color: #fff;
-  box-shadow: 0 0 40px 40px #011627 inset, 0 0 0 0 #011627;
+  border-color: #028090;
+  color: black;
+  box-shadow: 0 0 40px 40px #028090 inset, 0 0 0 0 #028090;
   transition: all 150ms ease-in-out;
   
   &:hover {
-    box-shadow: 0 0 10px 0 #2EC4B6 inset, 0 0 10px 4px #2EC4B6;
+    box-shadow: 0 0 10px 0 #02C39A inset, 0 0 10px 4px #02C39A;
   }
 }
 
@@ -172,10 +172,11 @@ p {
 
 //BUTTON 5
 .fifth {
-  border-color: $purple;
+  border-color: #88D498;
+  background: #01BAEF;
   // border: 0;
   border-radius: 0;
-  color: $purple;
+  color: black;
   position: relative;
   overflow: hidden;
   z-index: 1;
@@ -190,7 +191,7 @@ p {
     transform: translateX(-50%);
     width: 0;
     height: 100%;
-    background: $purple;
+    background: #1A936F;
     z-index: -1;
     transition: width 150ms ease-in-out;
   }

@@ -1,9 +1,9 @@
-<div *ngIf="user$[0]">
+<div>
 	<li>
 	<h1 style="color: #5DD39E;">{{user$[0].name}}</h1>
 	<style type="text/css">
 		.container {
-		  width: auto;
+		  width: 100%;
 		  padding: 10px 10px 20px 10px;
 		  border: 1px solid #BFBFBF;
 		  background-color: white;
@@ -12,7 +12,7 @@
 		.noshadow {
 		  width: 100%;
 		  padding: 0px 0px 0px 0px;
-		  border: 1px solid #BFBFBF;
+		  border: 0px solid #BFBFBF;
 		  background-color: white;
 		  box-shadow: 0px 0px 0px #aaaaaa;
 		}
@@ -59,12 +59,16 @@
 		}
 		img{
 			border-radius: 50%;
-			width: 3%;
+			width: 5%;
 		}
 
 	</style>
 	<div>
-		<ul [@listStagger]="user$[0]" class="container">
+		<ul class="container" *ngIf="user$[0].subject">
+			<li><strong><h2>{{user$[0].subject}}</h2></strong></li>
+			<li><p style="font-size: 15px;">{{user$[0].message}}</p></li>
+		</ul>
+		<ul *ngIf="user$[0].type" [@listStagger]="user$[0]" class="container">
 			<div *ngIf="user$[0].type">
 				<li><strong>Type:</strong> <p>{{user$[0].type}}</p></li>
 				<li><strong>Specie:</strong> <p>{{user$[0].specie}}</p></li>
@@ -80,13 +84,12 @@
 			<h1 style="color: #5DD39E;">Discussion</h1>
 			<div *ngIf=posts>
 			<div *ngFor="let post of posts" [@listStagger]="posts">
-				<ul class="container noshadow" *ngIf="post.name != user$[0].name">
+				<ul class="container noshadow" *ngIf="post.name != user$[0].name || user$[0].subject">
 					<li><img src="{{post.image}}"><strong>{{post.name}}</strong> {{post.date}}<p>{{post.message}}</p></li>
 				</ul>
 			</div>
 			</div>
 			<div *ngIf="registered">
-				<h4>Posts</h4>
 				<div>
 				  <form action="">
 				  	<input class="hindenberg" type="text" id="name" name="name" value="{{name}}">

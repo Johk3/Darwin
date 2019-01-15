@@ -1,16 +1,19 @@
 <style type="text/css">
 	.infinity {
 	  position: fixed;
-	  top: 155px;
-	  right: 50px;
+	  top: 0px;
+	  right: auto;
 	  z-index: 999;
 	  font-size: 22px;
 	}
 </style>
-
-<h1>Cooper DB</h1>
 <app-search class="infinity"></app-search>
-
+<br>
+<h1>Cooper DB</h1>
+<div>
+<button (click)="home()" class="fifth"><strong>home</strong></button>
+<button (click)="virusesFunc()" class="fifth"><strong>viruses</strong></button>
+</div>
 <ul *ngIf="search" [@listStagger]="search">
 	<h1>Results:</h1>
 	<li *ngFor="let item of search">
@@ -21,7 +24,16 @@
 	</li>
 </ul>
 
-<ul *ngIf="!search" [@listStagger]="users$">
+<ul *ngIf="viruscheck" [@listStagger]="users$">
+	<li *ngFor="let virus of viruses">
+		<a routerLink="/details/{{virus.id}}">{{virus.name}}</a>
+		<ul>
+			<li>{{virus.type}}</li>
+		</ul>
+	</li>	
+</ul>
+
+<ul *ngIf="!search && !viruscheck" [@listStagger]="users$">
 	<li *ngFor="let user of users$">
 		<a routerLink="/details/{{user.id}}">{{user.name}}</a>
 		<ul>

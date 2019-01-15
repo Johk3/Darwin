@@ -1,9 +1,40 @@
+<br>
 <h1>Posts</h1>
+<style type="text/css">
+.button {
+  font-size: 28px;
+  position: absolute;
+  top: 0px;
+  right: auto;
+  z-index: 999;
+}
+	.button {
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+}
+
+.button:hover {
+  background-color: #028090; /* Green */
+  color: white;
+}
+img{
+	border-radius: 50%;
+	width: 5%;
+}
+</style>
+
+<div *ngIf="registered">
+	<button (click)="btnClick();" class="button fifth"><strong>Post</strong></button>
+</div>
+<div *ngIf="!registered">
+	<button style="font-size: 20px;" class="button fifth"><strong>Sign in to post</strong></button>
+</div>
 
 <ul [@listStagger]="posts$">
 	<li *ngFor="let post of posts$">
-		<a routerLink="/post/{{post.id}}">{{post.title}}</a>
-		
-		<p>{{post.description}}</p>
+		<a routerLink="/details/{{post.id}}">{{post.subject}}<img src="{{post.image}}"></a>
+		<p style="font-size: 10px;">{{post.date}}</p>
+		<p *ngIf="post.message.length >= 70">{{post.message.substring(0,70)}}...</p>
+		<p *ngIf="post.message.length < 70">{{post.message.substring(0,70)}}</p>
 	</li>
-</ul>
+</ul>	

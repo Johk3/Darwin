@@ -1,6 +1,6 @@
 # Darwin 
 
-![](https://img.shields.io/badge/python-3.6-blue.svg) ![](https://img.shields.io/badge/license-MIT-lightgray.svg) ![](https://img.shields.io/badge/version-0.1.4-yellow.svg) ![](https://img.shields.io/badge/build-passing-green.svg)
+![](https://img.shields.io/node/v/v.svg) ![](https://img.shields.io/badge/license-MIT-lightgray.svg) ![](https://img.shields.io/badge/version-1.0.0-yellow.svg) ![](https://img.shields.io/badge/build-passing-green.svg)
 
 > A Microbial Information Tool. 
 
@@ -8,11 +8,10 @@
 
 ### Table of Contents 
 
-These are the sections on the [README.md](https://github.com/YELLOWHATT/Darwin/blob/master/README.md) file. 
+These are the sections on the [README.md](https://github.com/Deltasiv/Darwin/blob/master/README.md) file. 
 
 - [Description](#description)
 - [How To Use](#how-to-use)
-- [Files Included](#files-included) 
 - [References](#references) 
 - [Contributing](#contributing) 
 - [License](#license)
@@ -32,59 +31,30 @@ on Microbial data.
 
 #### Technologies 
 
-- Python 3 
-- SQLite 3 
+- Node 8.10.0
+- NPM 3.5.2
 
 #### Other technologies are subject to be used 
 
---- 
+Angular
 
 ## How To Use 
 
-To use this work simply download it and edit or use it by running it in the Python interpretor. 
+Run the program with this command, after downloading all packages
+```
+npm start
+```
 
 #### Prerequistites 
 
-You must have a Python interpreter that will run Python 3. If you don't have one [click here](https://www.python.org/downloads/release/python-368/) 
+You must have node installed with the right versions specified in the technologies part.
 
 #### Installation 
 
-To install Darwin please use the following command and make sure you have the Python 3 interpreter. 
-
-```bash 
-pip install Darwin 
+Download all packages with
 ```
-
-#### Usage 
-
-```python 
-microbes = "Bacteria, Virus, Protozoa, Fungi, Bug, or Help"
-
-print("Welcome!")
-print("\nYou are using version " + __version__ + " of " + __name__ + " made by " + __author__)
-
-def repeat2():
-
-    print("\nPlease select if you would like to view, " + microbes + "\n")
-    view = str(input())
+npm i
 ```
-```
-input: Virus 
-
-output: Going to Virus menu
-```
-
---- 
-
-## Files Included 
-
-- [.gitignore](https://github.com/YELLOWHATT/Darwin/blob/master/.gitignore)
-- [LICENSE](https://github.com/YELLOWHATT/Darwin/blob/master/LICENSE) 
-- [README.md](https://github.com/YELLOWHATT/Darwin/blob/master/README.md) 
-- [CONTRIBUTING.md](https://github.com/YELLOWHATT/Darwin/blob/master/CONTRIBUTORS.md)
-- [CONTRIBUTIONS.md](https://github.com/YELLOWHATT/Darwin/blob/master/CONTRIBUTIONS.md)
-- [koch.py](https://github.com/YELLOWHATT/Darwin/blob/master/koch.py)
-- [data.py](https://github.com/YELLOWHATT/Darwin/blob/master/data.py)
 
 #### Files are subject to have their name changed and more files can be included without notice. 
 
@@ -106,15 +76,13 @@ If you wish to help on this project you can simply make changes to the file and 
 
 MIT License 
 
-Copyright (c) [2017] [YELLOWHATT] 
+Copyright (c) [2019] [Deltasiv] 
 
 Permission is hereby granted, free of charge, to any person obtainin g a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: 
 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. 
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT, IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. 
-
-See | [LICENSE.md](https://github.com/YELLOWHATT/Darwin/blob/master/LICENSE) file or [MIT](https://choosealicense.com/licenses/mit/)|
 
 [Back To The Top](#Darwin) 
 
@@ -145,9 +113,7 @@ See | [LICENSE.md](https://github.com/YELLOWHATT/Darwin/blob/master/LICENSE) fil
 
 ## Version Info 
 
-The current stable version of Darwin is: 0.1.4. 
-
-Summury of Version 0.1.4 is Fungi are added and improved along with Bug fixes. 
+The current stable version of Darwin is: 1.0.0  
 
 --- 
 

@@ -8,6 +8,8 @@ var port = 1234;
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database("bob_bacteria.db");
 var postdb = new sqlite3.Database("posts.db")
+var userdb = new sqlite3.Database("users.db")
+var virusesdb = new sqlite3.Database("viruses.db")
 var url = require("url");
 
 var found;
@@ -22,6 +24,19 @@ app.use(cors());
 
 app.listen(port);
 console.log(`App is listening on port ${port}`)
+
+
+var fs = require('fs');
+var util = require('util');
+var date = new Date();
+datetime = `${date.getYear()}Y-${date.getMonth()}M-${date.getDay()}D--${date.getHours()}H-${date.getMinutes()}M_`
+var log_file = fs.createWriteStream(__dirname + `/clogs/${datetime}debug.log`, {flags : 'w'});
+var log_stdout = process.stdout;
+
+console.log = function(d) { //
+  log_file.write(util.format(d) + '\n');
+  log_stdout.write(util.format(d) + '\n');
+};
 
 // get all users
 app.get('/api/items', function(req, res) {
@@ -40,10 +55,38 @@ app.get('/api/items', function(req, res) {
             o[items].push(row)
         }
       });
+      var datetime = new Date();
+      console.log(`/api/items -- ${datetime} --`)
       res.json(o[items])
+      res.end()
       // res.json(o)
     });
 });
+
+app.get('/api/viruses', function(req, res) {
+    o = new Object()
+    var items = 'items';
+    o[items] = []
+
+    let sql = `SELECT * FROM main
+           ORDER BY name`;
+    virusesdb.all(sql, [], (err, rows) => {
+      if (err) {
+        throw err;
+      }
+      rows.forEach((row) => {
+        if(row.name != ""){
+            o[items].push(row)
+        }
+      });
+      var datetime = new Date();
+      console.log(`/api/viruses -- ${datetime} --`)
+      res.json(o[items])
+      res.end()
+      // res.json(o)
+    });
+});
+
 
 
 app.get('/api/posts', function(req, res) {
@@ -52,20 +95,84 @@ app.get('/api/posts', function(req, res) {
     Post.find(function(err, posts) {
 
         // if there is an error retrieving, send the error. nothing after res.send(err) will execute
-        if (err)
-            res.send(err)
+        if (err){
+          var datetime = new Date();
+          console.log(`ERROR: ${err} /api/posts -- ${datetime} --`)
+        }
 
         res.json(posts); // return all users in JSON format
     });
 });
+app.get('/api/messages/', function(req, res) {
+    o = new Object()
+    var items = 'items';
+    o[items] = []
+    let sql = `SELECT * FROM main
+           ORDER BY name`;
+    postdb.all(sql, [], (err, rows) => {
+      if (err) {
+        console.log(err);
+      }
+      rows.forEach((row) => {
+        if(row.subject != "undefined"){
+            o[items].push(row)
+        }
+      });
+      var datetime = new Date();
+      console.log(`/api/message/(GET) -- ${datetime} --`)
+      res.json(o[items])
+    })
+});
 
 app.post('/api/message/', function(req, res) {
-    let postdata = [req.body.id, req.body.name, req.body.image, req.body.message, req.body.date]
-    let sql = `INSERT INTO main(id, name, image, message, date) VALUES ("${postdata[0]}", "${postdata[1]}", "${postdata[2]}", "${postdata[3]}", "${postdata[4]}")`;
+    console.log("BODY")
+    console.log(req.body)
+    let postdata = [req.body.id, req.body.name, req.body.image, req.body.message, req.body.date, req.body.subject]
+    let sql = `INSERT INTO main(id, name, image, message, date, subject) VALUES ("${postdata[0]}", "${postdata[1]}", "${postdata[2]}", "${postdata[3]}", "${postdata[4]}", "${postdata[5]}")`;
+    
     postdb.run(sql, function(err){
         if(err){
-            return console.error(err.message)
+            return console.log(err)
         }
+    })
+    var datetime = new Date();
+    console.log(`/api/message/(POST) -- ${datetime} --`)
+});
+
+app.post('/api/user/', function(req, res) {
+    console.log("USER LOGIN")
+    var datetime = new Date();
+    console.log(req.body.email)
+    let exists = false
+    let sql = `SELECT * FROM users
+           ORDER BY name`;
+    userdb.all(sql, [], (err, rows) => {
+      if (err) {
+        console.log(err);
+      }
+      rows.forEach((row) => {
+        if(row.email == req.body.email){
+            var datetime = new Date();
+            exists = true
+            console.log(`USER EXISTS -- ${datetime} --`)
+            return res.end();
+        }
+      });
+      if(!exists){
+      var datetime = new Date();
+      console.log(`NEW USER ${req.body.email} -- ${datetime} --`)
+      let postdata = [req.body.email, req.body.image, req.body.name, req.body.token, req.body.id, req.body.idToken, datetime]
+      sql = `INSERT INTO users(email, image, name, token, id, idtoken, date) VALUES ("${postdata[0]}", "${postdata[1]}", "${postdata[2]}", "${postdata[3]}", "${postdata[4]}", "${postdata[5]}", "${datetime}")`;
+      
+      userdb.run(sql, function(err){
+          if(err){
+              return console.log(err)
+          }
+      })
+      var datetime = new Date();
+      console.log(`/api/user/(POST) -- ${datetime} --`)
+      res.end()
+    }
     })
 });
 
@@ -89,16 +196,20 @@ app.post('/api/search/', function(req, res) {
       });
       found = k[items]
     });
+      var datetime = new Date();
+      console.log(`/api/search/(POST) -- ${datetime} --`)
 });
 
 app.get('/api/search/', function(req, res){
     res.json(found)
+    var datetime = new Date();
+    console.log(`/api/items/(GET) -- ${datetime} --`)
 })
 
 app.get('/api/message/:id', function(req, res) {
-    o = new Object()
+    k = new Object()
     var items = 'items';
-    o[items] = []
+    k[items] = []
 
     let sql = `SELECT * FROM main
            ORDER BY name`;
@@ -107,11 +218,16 @@ app.get('/api/message/:id', function(req, res) {
         console.error(err);
       }
       rows.forEach((row) => {
-        if(row.id == req.params.id){
-            o[items].push(row)
+        if(row.id == req.params.id && row.subject == "undefined"){
+            k[items].push(row)
         }
       });
-      res.json(o[items])
+      if(k[items].length != 0){
+      res.json(k[items])        
+      res.end();
+      }
+      var datetime = new Date();
+      console.log(`/api/message/${req.params.id} -- ${datetime} --`)
       // res.json(o)
     });
 });
@@ -133,21 +249,61 @@ app.get('/api/items/:id', function(req, res) {
     o = new Object()
     var items = 'items';
     o[items] = []
-    // use mongoose to get all users in the database
-    // if there is an error retrieving, send the error. nothing after res.send(err) will execute
+
+    var datetime = new Date();
+    console.log(`/api/items/${req.params.id} -- ${datetime} --`)
+
     let sql = `SELECT * FROM bob
            ORDER BY name`;
+    let postsql = `SELECT * FROM main
+       ORDER BY name`;
     db.all(sql, [], (err, rows) => {
       if (err) {
-        throw err;
+        console.error(err);
       }
       rows.forEach((row) => {
         if(row.id == req.params.id){
             o[items].push(row)
         }
       });
-      res.json(o[items])
-      // res.json(o)
+      if(o[items].length != 0){
+        res.json(o[items])
+        res.end();
+      }else{
+      postdb.all(postsql, [], (err, rows) => {
+        if (err) {
+          throw err;
+        }
+        rows.forEach((row) => {
+          if(row.id == req.params.id){
+              o[items].push(row)
+          }
+        });
+        if(o[items].length != 0){
+          res.json(o[items])
+          res.end();
+        }else{
+
+        virusesdb.all(postsql, [], (err, rows) => {
+          if (err) {
+            throw err;
+          }
+          rows.forEach((row) => {
+            if(row.id == req.params.id){
+                o[items].push(row)
+            }
+          });
+          if(o[items].length != 0){
+            res.json(o[items])
+            res.end();
+          }
+          
+        });
+
+        }
+        
+      });
+      }
     });
 });
 
@@ -156,24 +312,13 @@ app.post('/api/users', function(req, res) {
 
     // create a user, information comes from AJAX request from Angular
     // Text means story/description
-    User.create({
-        text: req.body.text,
-		username: req.body.username,
-		password: req.body.password,
-		email: req.body.email,
-		firstname: req.body.firstname,
-		lastname: req.body.lastname,
-    }, function(err, user) {
-        if (err)
-            res.send(err);
-
-        // get and return all the users after you create another
-        User.find(function(err, users) {
-            if (err)
-                res.send(err)
-            res.json(users);
-        });
-    });
+    user = new Object()
+    var items = "items"
+    user[items] = []
+    user["name"].push(req.body.name)
+    user["email"].push(req.body.email)
+    user["image"].push(req.body.image)
+    user["token"].push(req.body.token)
 
 });
 

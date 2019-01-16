@@ -1,4 +1,5 @@
 var express  = require('express');
+var https
 var cors = require('cors');
 var app      = express();                               // create our app w/ express                // mongoose for mongodb
 var morgan = require('morgan');             // log requests to the console (express4)
@@ -11,8 +12,24 @@ var postdb = new sqlite3.Database("posts.db")
 var userdb = new sqlite3.Database("users.db")
 var virusesdb = new sqlite3.Database("viruses.db")
 var url = require("url");
+var https = require('https');
 
 var found;
+
+var https_options = {
+
+  key: fs.readFileSync("delta.key"),
+
+  cert: fs.readFileSync("delta.crt"),
+
+  ca: [
+
+          fs.readFileSync('keys/deltasiv_com.crt'),
+
+          fs.readFileSync('keys/deltasiv_com.ca-bundle')
+
+       ]
+};
 
 app.use(express.static(__dirname + '/src'));                 // set the static files location /public/img will be /img for users
 app.use(morgan('dev'));                                         // log every request to the console
@@ -22,7 +39,14 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse applica
 app.use(methodOverride());
 app.use(cors());
 
-app.listen(port);
+// app.listen(port);
+https.createServer(options, function (req, res) {
+
+ res.writeHead(200);
+
+ res.end("Welcome to Node.js HTTPS Servern");
+
+}).listen(443)
 console.log(`App is listening on port ${port}`)
 
 

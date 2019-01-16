@@ -1,5 +1,4 @@
 var express  = require('express');
-var https
 var cors = require('cors');
 var app      = express();                               // create our app w/ express                // mongoose for mongodb
 var morgan = require('morgan');             // log requests to the console (express4)
@@ -12,13 +11,6 @@ var postdb = new sqlite3.Database("posts.db")
 var userdb = new sqlite3.Database("users.db")
 var virusesdb = new sqlite3.Database("viruses.db")
 var url = require("url");
-var https = require('https');
-
-var options = {
-  ca: fs.readFileSync("keys/deltasiv_com.ca-bundle"),
-  key: fs.readFileSync("keys/delta.key"),
-  cert: fs.readFileSync("keys/deltasiv_com.crt")
-}
 
 var found;
 
@@ -30,9 +22,23 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse applica
 app.use(methodOverride());
 app.use(cors());
 
-// app.listen(port);
 console.log(`App is listening on port ${port}`)
-https.createServer(options, function(res, req){
+
+var https = require('https');
+var http = require('http');
+var fs = require('fs');
+
+// This line is from the Node.js HTTPS documentation.
+var options = {
+  key: fs.readFileSync('keys/delta.key'),
+  cert: fs.readFileSync('keys/deltasiv_com.crt')
+};
+
+// Create a service (the app object is just a callback).
+
+// Create an HTTP service.
+// Create an HTTPS service identical to the HTTP service.
+https.createServer(options, app).listen(1234);
 
 
 var fs = require('fs');
@@ -348,7 +354,7 @@ app.delete('/api/users/:user_id', function(req, res) {
     });
 });
 
-})
+
 /*var bodyParser = require("mongodb");
 var express = require('express');
 var mongodb = require("mongodb");
@@ -359,21 +365,21 @@ var logger = require("morgan")*/
 var url = "mongodb://localhost:27017/datinxy"
 
 MongoClient.connect(url, function(err, db){
-	if(err){
-		console.log("Unable to connect to database")
-	} else{
-		console.log("Connection Established")
-		var users = db.db("datinxy")
-		var data = users.collection("users")
-		
-		data.find({}).toArray(function(err, result){
-			if(err){
-				console.log(err)
-			}else if (result.length){
-				console.log(result)
-			}else{
-				console.log("No results found")
-			}
-		})
-	}
+  if(err){
+    console.log("Unable to connect to database")
+  } else{
+    console.log("Connection Established")
+    var users = db.db("datinxy")
+    var data = users.collection("users")
+    
+    data.find({}).toArray(function(err, result){
+      if(err){
+        console.log(err)
+      }else if (result.length){
+        console.log(result)
+      }else{
+        console.log("No results found")
+      }
+    })
+  }
 })*/

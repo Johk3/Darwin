@@ -5,7 +5,7 @@
     "start": "concurrently --kill-others \"npm run api\" \"npm run server\"",
     "api": "node app.js",
     "ng": "ng",
-    "server": "ng serve --port 80 --host deltasiv.com",
+    "server": "ng serve --port 443 --host deltasiv.com --ssl true --ssl-cert 'keys/deltasiv_com.crt' --ssl-key 'keys/delta.key'",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

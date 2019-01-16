@@ -22,7 +22,7 @@ export class DataService {
   }
 
   getViruses(){
-    return this.http.get('http://localhost:1234/api/viruses')
+    return this.http.get('http://deltasiv.com:1234/api/viruses')
   }
 
   getUser(userId){

@@ -14,22 +14,13 @@ var virusesdb = new sqlite3.Database("viruses.db")
 var url = require("url");
 var https = require('https');
 
+var options = {
+  ca: fs.readFileSync("keys/deltasiv_com.ca-bundle"),
+  key: fs.readFileSync("keys/delta.key"),
+  cert: fs.readFileSync("keys/deltasiv_com.crt")
+}
+
 var found;
-
-var https_options = {
-
-  key: fs.readFileSync("delta.key"),
-
-  cert: fs.readFileSync("delta.crt"),
-
-  ca: [
-
-          fs.readFileSync('keys/deltasiv_com.crt'),
-
-          fs.readFileSync('keys/deltasiv_com.ca-bundle')
-
-       ]
-};
 
 app.use(express.static(__dirname + '/src'));                 // set the static files location /public/img will be /img for users
 app.use(morgan('dev'));                                         // log every request to the console
@@ -40,14 +31,8 @@ app.use(methodOverride());
 app.use(cors());
 
 // app.listen(port);
-https.createServer(options, function (req, res) {
-
- res.writeHead(200);
-
- res.end("Welcome to Node.js HTTPS Servern");
-
-}).listen(443)
 console.log(`App is listening on port ${port}`)
+https.createServer(options, function(res, req){
 
 
 var fs = require('fs');
@@ -363,7 +348,7 @@ app.delete('/api/users/:user_id', function(req, res) {
     });
 });
 
-
+})
 /*var bodyParser = require("mongodb");
 var express = require('express');
 var mongodb = require("mongodb");

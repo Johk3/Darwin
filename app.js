@@ -12,6 +12,12 @@ var userdb = new sqlite3.Database("users.db")
 var virusesdb = new sqlite3.Database("viruses.db")
 var url = require("url");
 
+var http = require('http');
+http.createServer(function (req, res) {
+    res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
+    res.end();
+}).listen(80);
+
 var found;
 
 app.use(express.static(__dirname + '/src'));                 // set the static files location /public/img will be /img for users

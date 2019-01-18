@@ -10,6 +10,7 @@ var db = new sqlite3.Database("bob_bacteria.db");
 var postdb = new sqlite3.Database("posts.db")
 var userdb = new sqlite3.Database("users.db")
 var virusesdb = new sqlite3.Database("viruses.db")
+var ipdb = new sqlite3.Database("ips.db")
 var url = require("url");
 
 var http = require('http');
@@ -76,6 +77,16 @@ app.get('/api/items', function(req, res) {
             o[items].push(row)
         }
       });
+      var datetime = new Date();
+      var ip = req.connection.remoteAddress.slice(7)
+      console.log(ip)
+      let sqlip = `INSERT INTO main(ip, date) VALUES ("${ip}", "${datetime}")`;
+      
+      ipdb.run(sqlip, function(err){
+          if(err){
+              return console.log(err)
+          }
+      })
       var datetime = new Date();
       console.log(`/api/items -- ${datetime} --`)
       res.json(o[items])

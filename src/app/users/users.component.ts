@@ -31,6 +31,8 @@ export class UsersComponent implements OnInit {
   search: Object;
   viruses: Object;
   viruscheck: boolean;
+  bacteriacheck: boolean;
+  bacterias: Object;
 
   constructor(private data: DataService, public datway: AppComponent, private cookieService: CookieService) {
     // This is to toggle the sidebar
@@ -38,12 +40,20 @@ export class UsersComponent implements OnInit {
   }
   public home(){
     this.viruscheck = false;
+    this.bacteriacheck = false
   }
 
   public virusesFunc(){
     this.viruscheck = true
     this.data.getViruses().subscribe(
       data => this.viruses = data
+    )
+  }
+
+  public bacteriaFunc(){
+    this.bacteriacheck = true
+    this.data.getBacterias().subscribe(
+      data => this.bacterias = data
     )
   }
 

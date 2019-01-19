@@ -18,35 +18,39 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   getUsers(){
-  	return this.http.get('https://deltasiv.com:1234/api/items')
+  	return this.http.get('http://localhost:1234/api/items')
   }
 
   getViruses(){
-    return this.http.get('https://deltasiv.com:1234/api/viruses')
+    return this.http.get('http://localhost:1234/api/viruses')
+  }
+
+  getBacterias(){
+    return this.http.get('http://localhost:1234/api/bacterias')
   }
 
   getUser(userId){
-  	return this.http.get('https://deltasiv.com:1234/api/items/' + userId)
+  	return this.http.get('http://localhost:1234/api/items/' + userId)
   }
 
   getPosts(postName){
-  	return this.http.get('https://deltasiv.com:1234/api/message/' + postName)
+  	return this.http.get('http://localhost:1234/api/message/' + postName)
   }
   getAllPosts(){
-    return this.http.get('https://deltasiv.com:1234/api/messages/')
+    return this.http.get('http://localhost:1234/api/messages/')
   }
 
   postMessage(stuff){
-    return this.http.post(`https://deltasiv.com:1234/api/message/`, stuff, httpOptions);
+    return this.http.post(`http://localhost:1234/api/message/`, stuff, httpOptions);
   }
   searchService(message){
-    return this.http.post('https://deltasiv.com:1234/api/search/', message, httpOptions);
+    return this.http.post('http://localhost:1234/api/search/', message, httpOptions);
   }
   searchGet(){
-    return this.http.get('https://deltasiv.com:1234/api/search/');
+    return this.http.get('http://localhost:1234/api/search/');
   }
   newUser(details){
-    return this.http.post(`https://localhost:1234/api/user/`, details, httpOptions);
+    return this.http.post(`http://localhost:1234/api/user/`, details, httpOptions);
   }
 
 }

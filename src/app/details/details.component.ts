@@ -55,7 +55,6 @@ export class DetailsComponent implements OnInit {
 
   public pushMsg() {
     if(!this.message){
-      console.log(this.guidGenerator())
       return this.no_message = true;
     }
     let admin = this.cookieService.get("name")

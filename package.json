@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "start": "concurrently --kill-others \"npm run api\" \"npm run server\"",
-    "api": "node app.js",
+    "api": "nodemon app.js",
     "ng": "ng",
-    "server": "ng serve --port 443 --host deltasiv.com --ssl true --ssl-cert 'keys/deltasiv_com.crt' --ssl-key 'keys/delta.key'",
+    "server": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

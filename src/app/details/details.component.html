@@ -1,11 +1,11 @@
 <div>
 	<li>
-	<h1 style="color: #5DD39E;">{{user$[0].name}}</h1>
+	<h1 style="color: #070d59;">{{user$[0].name}}</h1>
 	<style type="text/css">
 		.container {
 		  width: 100%;
 		  padding: 10px 10px 20px 10px;
-		  border: 1px solid #BFBFBF;
+		  border: 1px solid #070d59;
 		  background-color: white;
 		  box-shadow: 10px 10px 5px #aaaaaa;
 		}
@@ -35,7 +35,7 @@
 
 		input[type=submit] {
 		  width: 100%;
-		  background-color: #4CAF50;
+		  background-color: #5893d4;
 		  color: white;
 		  padding: 14px 20px;
 		  margin: 8px 0;
@@ -45,7 +45,7 @@
 		}
 
 		input[type=submit]:hover {
-		  background-color: #45a049;
+		  background-color: #1f3c88;
 		}
 
 		div {
@@ -65,8 +65,8 @@
 	</style>
 	<div>
 		<ul class="container" *ngIf="user$[0].subject">
-			<li><strong><h2>{{user$[0].subject}}</h2></strong></li>
-			<li><p style="font-size: 15px;">{{user$[0].message}}</p></li>
+			<li><strong>Title</strong><h2>{{user$[0].subject}}</h2></li>
+			<li><strong>Description</strong><p style="font-size: 15px;">{{user$[0].message}}</p></li>
 		</ul>
 		<ul *ngIf="user$[0].type" [@listStagger]="user$[0]" class="container">
 			<div *ngIf="user$[0].type">
@@ -81,7 +81,7 @@
 			</div>
 		</ul>
 		<ul class="container">
-			<h1 style="color: #5DD39E;">Discussion</h1>
+			<h1 style="color: #070d59;">Discussion</h1>
 			<div *ngIf=posts>
 			<div *ngFor="let post of posts" [@listStagger]="posts">
 				<ul class="container noshadow" *ngIf="post.name != user$[0].name || user$[0].subject">

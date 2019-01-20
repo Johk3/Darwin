@@ -49,8 +49,13 @@ export class DetailsComponent implements OnInit {
   name = this.cookieService.get("name");
   img = this.cookieService.get("image");
 
+  public guidGenerator() {
+    return '_' + Math.random().toString(36).substr(2, 16);
+  }
+
   public pushMsg() {
     if(!this.message){
+      console.log(this.guidGenerator())
       return this.no_message = true;
     }
     let admin = this.cookieService.get("name")
@@ -97,7 +102,7 @@ export class DetailsComponent implements OnInit {
   	this.data.getUser(this.user$).subscribe(
   		data => this.user$ = data
   	)
-    this.data.getPosts(this.user$).subscribe(
+    this.data.getPosts(this.id).subscribe(
       data => this.posts = data
     )
   }

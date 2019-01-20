@@ -6,6 +6,12 @@ body {
      height: 100vh;
 }
 
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color:#5893d4;
+}
+
 #container {
     display: grid;
     grid-template-columns: 70px auto;

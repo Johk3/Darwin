@@ -70,6 +70,8 @@ npm i
 
 ## Contributing
 
+Be aware of the fact that contributing will be hard since some of the essential database files and folders(clogs) is removed automaticly. If you want you can recreate them and then the program should work. To find all the databases needed checkout app.js!
+
 If you wish to help on this project you can simply make changes to the file and post your changes and if they are appreciated we will merge them to the Master branch. Please read the [CONTRIBUTING.md](https://github.com/YELLOWHATT/Darwin/blob/master/CONTRIBUTORS.md) file for more information. If you have contributed to this work known as Darwin you will be credited the file for contributors is [CONTRIBUTIONS.md](https://github.com/YELLOWHATT/Darwin/blob/master/CONTRIBUTIONS.md). :) 
 
 --- 

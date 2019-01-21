@@ -8,6 +8,7 @@ import { RegisterComponent } from "./register/register.component";
 import { PostComponent } from "./post/post.component";
 import { HomeComponent } from "./home/home.component";
 import { PostPageComponent } from "./post-page/post-page.component";
+import { AboutComponent } from "./about/about.component"
 
 const routes: Routes = [
 	{
@@ -37,6 +38,10 @@ const routes: Routes = [
 	{
 		path: "post-page",
 		component: PostPageComponent
+	},
+	{
+		path: "about",
+		component: AboutComponent
 	}
 ];
 

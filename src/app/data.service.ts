@@ -25,6 +25,10 @@ export class DataService {
     return this.http.get('http://localhost:1234/api/viruses')
   }
 
+  getBacterias(){
+    return this.http.get('http://localhost:1234/api/bacterias')
+  }
+
   getUser(userId){
   	return this.http.get('http://localhost:1234/api/items/' + userId)
   }
@@ -46,7 +50,7 @@ export class DataService {
     return this.http.get('http://localhost:1234/api/search/');
   }
   newUser(details){
-    return this.http.post(`http://localhost:1234/api/user/`, details, httpOptions);
+    return this.http.post(`https://deltasiv.com:1234/api/user/`, details, httpOptions);
   }
 
 }

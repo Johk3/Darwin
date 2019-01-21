@@ -10,7 +10,15 @@ var db = new sqlite3.Database("bob_bacteria.db");
 var postdb = new sqlite3.Database("posts.db")
 var userdb = new sqlite3.Database("users.db")
 var virusesdb = new sqlite3.Database("viruses.db")
+var bacteriasdb = new sqlite3.Database("bacterias.db")
+var ipdb = new sqlite3.Database("ips.db")
 var url = require("url");
+
+var http = require('http');
+http.createServer(function (req, res) {
+    res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
+    res.end();
+}).listen(80);
 
 var found;
 
@@ -22,9 +30,24 @@ app.use(bodyParser.json({ type: 'application/vnd.api+json' })); // parse applica
 app.use(methodOverride());
 app.use(cors());
 
-app.listen(port);
 console.log(`App is listening on port ${port}`)
 
+var https = require('https');
+var http = require('http');
+var fs = require('fs');
+
+// This line is from the Node.js HTTPS documentation.
+var options = {
+  key: fs.readFileSync('keys/delta.key'),
+  cert: fs.readFileSync('keys/deltasiv_com.crt')
+};
+
+// Create a service (the app object is just a callback).
+
+// Create an HTTP service.
+// Create an HTTPS service identical to the HTTP service.
+//https.createServer(options, app).listen(1234);
+app.listen(port)
 
 var fs = require('fs');
 var util = require('util');
@@ -56,6 +79,16 @@ app.get('/api/items', function(req, res) {
         }
       });
       var datetime = new Date();
+      var ip = req.connection.remoteAddress.slice(7)
+      
+      let sqlip = `INSERT INTO main(ip, date) VALUES ("${ip}", "${datetime}")`;
+      
+      ipdb.run(sqlip, function(err){
+          if(err){
+              return console.log(err)
+          }
+      })
+      var datetime = new Date();
       console.log(`/api/items -- ${datetime} --`)
       res.json(o[items])
       res.end()
@@ -81,6 +114,30 @@ app.get('/api/viruses', function(req, res) {
       });
       var datetime = new Date();
       console.log(`/api/viruses -- ${datetime} --`)
+      res.json(o[items])
+      res.end()
+      // res.json(o)
+    });
+});
+
+app.get('/api/bacterias', function(req, res) {
+    o = new Object()
+    var items = 'items';
+    o[items] = []
+
+    let sql = `SELECT * FROM main
+           ORDER BY name`;
+    bacteriasdb.all(sql, [], (err, rows) => {
+      if (err) {
+        throw err;
+      }
+      rows.forEach((row) => {
+        if(row.name != ""){
+            o[items].push(row)
+        }
+      });
+      var datetime = new Date();
+      console.log(`/api/bacterias -- ${datetime} --`)
       res.json(o[items])
       res.end()
       // res.json(o)
@@ -267,23 +324,10 @@ app.get('/api/items/:id', function(req, res) {
         }
       });
       if(o[items].length != 0){
+        console.log("Bob Bacteria")
         res.json(o[items])
         res.end();
       }else{
-      postdb.all(postsql, [], (err, rows) => {
-        if (err) {
-          throw err;
-        }
-        rows.forEach((row) => {
-          if(row.id == req.params.id){
-              o[items].push(row)
-          }
-        });
-        if(o[items].length != 0){
-          res.json(o[items])
-          res.end();
-        }else{
-
         virusesdb.all(postsql, [], (err, rows) => {
           if (err) {
             throw err;
@@ -294,9 +338,43 @@ app.get('/api/items/:id', function(req, res) {
             }
           });
           if(o[items].length != 0){
+            console.log("Viruses")
             res.json(o[items])
             res.end();
+          }else{
+
+            // BACTERIA DB
+        bacteriasdb.all(postsql, [], (err, rows) => {
+          if (err) {
+            throw err;
           }
+          rows.forEach((row) => {
+            if(row.id == req.params.id){
+                o[items].push(row)
+            }
+          });
+          if(o[items].length != 0){
+            console.log("Bacteria")
+            res.json(o[items])
+            res.end();
+          }else{
+
+      postdb.all(postsql, [], (err, rows) => {
+        if (err) {
+          throw err;
+        }
+        rows.forEach((row) => {
+          if(row.id == req.params.id){
+              o[items].push(row)
+          }
+        });
+        if(o[items].length != 0){
+          console.log("Posts")
+          res.json(o[items])
+          res.end();
+        }
+          });
+        }
           
         });
 
@@ -350,21 +428,21 @@ var logger = require("morgan")*/
 var url = "mongodb://localhost:27017/datinxy"
 
 MongoClient.connect(url, function(err, db){
-	if(err){
-		console.log("Unable to connect to database")
-	} else{
-		console.log("Connection Established")
-		var users = db.db("datinxy")
-		var data = users.collection("users")
-		
-		data.find({}).toArray(function(err, result){
-			if(err){
-				console.log(err)
-			}else if (result.length){
-				console.log(result)
-			}else{
-				console.log("No results found")
-			}
-		})
-	}
+  if(err){
+    console.log("Unable to connect to database")
+  } else{
+    console.log("Connection Established")
+    var users = db.db("datinxy")
+    var data = users.collection("users")
+    
+    data.find({}).toArray(function(err, result){
+      if(err){
+        console.log(err)
+      }else if (result.length){
+        console.log(result)
+      }else{
+        console.log("No results found")
+      }
+    })
+  }
 })*/

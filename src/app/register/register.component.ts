@@ -56,14 +56,14 @@ export class RegisterComponent implements OnInit {
 		    this.cookieService.set( 'name', userData.name );
 		    this.cookieService.set( 'image', userData.image );
 		    this.cookieService.set( 'email', userData.email )
+		    this.img = this.cookieService.get("image");
+  			this.name = this.cookieService.get("name");
 		    if(this.cookieService.check("authtoken")){
 		    	this.registered = true;
 		    	this.data.newUser(userData).subscribe(
 		    		data => this.user$ = data
 		    	)
 		    }
-		    this.img = this.cookieService.get("image");
-  			this.name = this.cookieService.get("name");
 		  }
 		)
   }

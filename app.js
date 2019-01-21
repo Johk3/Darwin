@@ -184,16 +184,32 @@ app.get('/api/messages/', function(req, res) {
 app.post('/api/message/', function(req, res) {
     console.log("BODY")
     console.log(req.body)
+    var postpost = true
     let postdata = [req.body.id, req.body.name, req.body.image, req.body.message, req.body.date, req.body.subject]
+    let checksql = `SELECT * FROM main
+           ORDER BY name`;
     let sql = `INSERT INTO main(id, name, image, message, date, subject) VALUES ("${postdata[0]}", "${postdata[1]}", "${postdata[2]}", "${postdata[3]}", "${postdata[4]}", "${postdata[5]}")`;
-    
+    postdb.all(checksql, [], (err, rows) => {
+      if (err) {
+        console.log(err);
+      }
+      rows.forEach((row) => {
+        if(row.id == req.body.id){
+            postpost = true
+            return res.end();
+        }
+      });
+    if(postpost){
     postdb.run(sql, function(err){
         if(err){
             return console.log(err)
         }
     })
+    }
     var datetime = new Date();
     console.log(`/api/message/(POST) -- ${datetime} --`)
+    res.end()
+});
 });
 
 app.post('/api/user/', function(req, res) {
@@ -385,37 +401,37 @@ app.get('/api/items/:id', function(req, res) {
     });
 });
 
-// create user and send back all users after creation
-app.post('/api/users', function(req, res) {
+// // create user and send back all users after creation
+// app.post('/api/users', function(req, res) {
 
-    // create a user, information comes from AJAX request from Angular
-    // Text means story/description
-    user = new Object()
-    var items = "items"
-    user[items] = []
-    user["name"].push(req.body.name)
-    user["email"].push(req.body.email)
-    user["image"].push(req.body.image)
-    user["token"].push(req.body.token)
+//     // create a user, information comes from AJAX request from Angular
+//     // Text means story/description
+//     user = new Object()
+//     var items = "items"
+//     user[items] = []
+//     user["name"].push(req.body.name)
+//     user["email"].push(req.body.email)
+//     user["image"].push(req.body.image)
+//     user["token"].push(req.body.token)
 
-});
+// });
 
-// delete a user
-app.delete('/api/users/:user_id', function(req, res) {
-    User.remove({
-        _id : req.params.user_id
-    }, function(err, todo) {
-        if (err)
-            res.send(err);
+// // delete a user
+// app.delete('/api/users/:user_id', function(req, res) {
+//     User.remove({
+//         _id : req.params.user_id
+//     }, function(err, todo) {
+//         if (err)
+//             res.send(err);
 
-        // get and return all the users after you create another
-        User.find(function(err, users) {
-            if (err)
-                res.send(err)
-            res.json(users);
-        });
-    });
-});
+//         // get and return all the users after you create another
+//         User.find(function(err, users) {
+//             if (err)
+//                 res.send(err)
+//             res.json(users);
+//         });
+//     });
+// });
 
 
 /*var bodyParser = require("mongodb");

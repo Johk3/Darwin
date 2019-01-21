@@ -25,9 +25,11 @@ These are the sections on the [README.md](https://github.com/Deltasiv/Darwin/blo
 
 ## Description 
 
-Darwin is a Microbiological tool in the making that is made to be used with Biological sciences and will have features added to 
-make it better Darwin was made as a substitute to using big bulk textbooks and to simply use the modern tools given to us to work 
-on Microbial data. 
+Darwin is a Microbiological tool in the making that is made to be used with Biological sciences and will have many new viruses, bacterias, fungus and protozoans added. The current version of Darwin supports only a fraction of the viruses etc.. that are needed for the final product. 
+
+## What can I do with this?
+
+You can participate in discussions about different viruses, fungus, bacterias and protozoans. You can also make your own posts that people can interact with and discuss. The viewing of posts and bacterias is currently unorganized, we will have to think of some way to organize all the items. 
 
 #### Technologies 
 

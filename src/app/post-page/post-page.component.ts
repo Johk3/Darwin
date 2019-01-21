@@ -38,7 +38,6 @@ export class PostPageComponent implements OnInit {
   			this.toolong = true;
   		}
   	}if (!this.nomessage && !this.toolong && this.signedin){
-  		console.log("yuh")
   		// Time limit
   		if(this.cookieService.check("post_time")){
         var currHour = new Date().getUTCHours();
@@ -46,7 +45,7 @@ export class PostPageComponent implements OnInit {
         var timecookiec = this.cookieService.get("post_time");
         let prevtime = timecookiec.split(" ").map(function (val) { return +val; });
         // CHANGE THE 0 TO 5
-        if(currHour - prevtime[0] > 0 || currMinute - prevtime[1] > 5){
+        if(currHour - prevtime[0] > 0 || currMinute - prevtime[1] > 0){
           this.cookieService.delete("post_time");
           this.wait = false;
         }else{

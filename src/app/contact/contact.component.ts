@@ -1,43 +1,41 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { DataService } from "../data.service";
-import { trigger,style,transition,animate,keyframes,query,stagger } from '@angular/animations';
 import { AppComponent } from "../app.component"
 
+
 @Component({
-  selector: 'app-post-page',
-  templateUrl: './post-page.component.html',
-  styleUrls: ['./post-page.component.scss']
+  selector: 'app-contact',
+  templateUrl: './contact.component.html',
+  styleUrls: ['./contact.component.scss']
 })
-export class PostPageComponent implements OnInit {
+export class ContactComponent implements OnInit {
   nomessage: boolean;
   transaction: boolean;
   toolong: boolean;
   wait: boolean;
   signedin: boolean;
+  notitle: boolean;
   data$ = {};
-  posts$: object;
 
-  constructor(private data: DataService, private cookieService: CookieService, public datway: AppComponent) { 
-  	datway.edited = true; 
+  constructor(private datway: AppComponent, private data: DataService, private cookieService: CookieService) { 
+  	datway.edited = true;
   }
 
-  registered: boolean = this.cookieService.check('authtoken');
-
-  public Submit(subject, message){
+  public Submit(title, description){
   	this.toolong = false;
-    this.nomessage = false;
+    this.notitle = false;
     this.wait = false;
     this.signedin = this.cookieService.check('authtoken');
 
-    if(!subject || !message){
-  		this.nomessage = true;
+    if(!description || !title){
+  		this.notitle = true;
   	}
-  	if(!this.nomessage){
-  		if(subject.length >= 200 || message.length >= 10000){
+  	if(!this.notitle){
+  		if(description.length >= 200 || title.length >= 10000){
   			this.toolong = true;
   		}
-  	}if (!this.nomessage && !this.toolong && this.signedin){
+  	}if (!this.notitle && !this.toolong && this.signedin){
   		// Time limit
   		if(this.cookieService.check("post_time")){
         var currHour = new Date().getUTCHours();
@@ -45,7 +43,7 @@ export class PostPageComponent implements OnInit {
         var timecookiec = this.cookieService.get("post_time");
         let prevtime = timecookiec.split(" ").map(function (val) { return +val; });
         // CHANGE THE 0 TO 5
-        if(currHour - prevtime[0] > 0 || currMinute - prevtime[1] > 5){
+        if(currHour - prevtime[0] > 0 || currMinute - prevtime[1] > 0){
           this.cookieService.delete("post_time");
           this.wait = false;
         }else{
@@ -72,25 +70,22 @@ export class PostPageComponent implements OnInit {
 
 	    let name = this.cookieService.get("name");
 	  	let img = this.cookieService.get("image");
+	  	let email = this.cookieService.get("email");
 
 	    this.data$["name"] = name;
-	    this.data$["image"] = img;
-	    this.data$["message"] = message;
-	    this.data$["id"] = id;
+	    this.data$["title"] = title;
 	    this.data$["date"] = dttime;
-	    this.data$["subject"] = subject;
-	    this.data.postMessage(this.data$).subscribe(
-	      data => this.data$ = data
+	    this.data$["description"] = description;
+	    this.data$["email"] = email;
+	    this.data.postContact(this.data$).subscribe(
+	    	data => this.data$ = data
 	    )
   	}
   	}
   	this.transaction = true;
-	}
-
-
+  }
 
   ngOnInit() {
-  	this.registered = this.cookieService.check('authtoken');
   }
 
 }

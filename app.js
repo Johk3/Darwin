@@ -73,6 +73,16 @@ console.log = function(d) { //
   log_stdout.write(util.format(d) + '\n');
 };
 
+process.on('SIGINT', () => {
+    console.log("Safely Closing API Server...")
+    db.close();
+    postdb.close();
+    virusesdb.close();
+    bacteriasdb.close();
+    server.close();
+    process.exit()
+});
+
 // get all users
 app.get('/api/items', function(req, res) {
     o = new Object()

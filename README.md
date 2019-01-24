@@ -26,10 +26,13 @@ These are the sections on the [README.md](https://github.com/Deltasiv/Darwin/blo
 ## Description 
 
 Darwin is a Microbiological tool in the making that is made to be used with Biological sciences and will have many new viruses, bacterias, fungus and protozoans added. The current version of Darwin supports only a fraction of the microbes that are needed for the final product. 
+If you find a bug on our website be sure to checkout the contact page of the website to tell about the bug or open an issue request here on github. We appreciate every contribution and we try to credit the biggest contributors by placing their name in this readme.
 
 ## What can I do with this?
 
 You can participate in discussions about different viruses, fungus, bacterias and protozoans. You can also make your own posts that people can interact with and discuss. The viewing of posts and bacterias is currently unorganized, we will have to think of some way to organize all the items. 
+
+In future updates you will be able to organize your own teams for scientific purpose.
 
 #### Technologies 
 

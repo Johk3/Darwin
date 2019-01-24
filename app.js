@@ -13,12 +13,15 @@ var virusesdb = new sqlite3.Database("viruses.db")
 var bacteriasdb = new sqlite3.Database("bacterias.db")
 var ipdb = new sqlite3.Database("ips.db")
 var url = require("url");
+var nodemailer = require("nodemailer");
+var email;
+var password;
 
-var http = require('http');
-http.createServer(function (req, res) {
-    res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
-    res.end();
-}).listen(80);
+// var http = require('http');
+// http.createServer(function (req, res) {
+//     res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
+//     res.end();
+// }).listen(80);
 
 var found;
 
@@ -34,18 +37,27 @@ console.log(`App is listening on port ${port}`)
 
 var https = require('https');
 var http = require('http');
-var fs = require('fs');
+// var fs = require('fs');
 
-// This line is from the Node.js HTTPS documentation.
-var options = {
-  key: fs.readFileSync('keys/delta.key'),
-  cert: fs.readFileSync('keys/deltasiv_com.crt')
-};
+// // This line is from the Node.js HTTPS documentation.
+// var options = {
+//   key: fs.readFileSync('keys/delta.key'),
+//   cert: fs.readFileSync('keys/cert_chain.crt')
+// };
 
 // Create a service (the app object is just a callback).
 
 // Create an HTTP service.
 // Create an HTTPS service identical to the HTTP service.
+var creds = [];
+var lineReader = require('readline').createInterface({
+  input: require('fs').createReadStream('keys/creds.txt')
+});
+lineReader.on('line', function (line) {
+  creds.push(line)
+})
+
+
 //https.createServer(options, app).listen(1234);
 app.listen(port)
 
@@ -400,6 +412,47 @@ app.get('/api/items/:id', function(req, res) {
       }
     });
 });
+
+app.post("/api/contact/", (req, res) =>{
+  name = req.body.name
+  email = req.body.email
+  message = req.body.description
+  title = req.body.title
+  date = req.body.date
+
+  try{
+    let transporter = nodemailer.createTransport({
+      service: "gmail",
+      secure: false,
+      port: 25,
+      auth: {
+        user: creds[0],
+        pass: creds[1]
+      },
+      tls: {
+        rejectUnauthorized: false
+      }
+    });
+
+    let HelperOptions = {
+      from: '"Deltasiv" < legendaryemailbot@gmail.com',
+      to: 'user3610@protonmail.com',
+      subject: `Customer ${name} contacted you`,
+      text: `User ${name} contacted you with the email ${email}\nTitle: ${title}\nMessage: ${message}\nDate: ${date}`
+    };
+    transporter.sendMail(HelperOptions, (error, info) => {
+      if(error){
+        return console.log("this is the error" + error)
+      }
+    });
+  }catch(err){
+    res.send("Error happened while sending the email...")
+  }
+
+
+  console.log(`Email sent from ${email}`);
+});
+
 
 // // create user and send back all users after creation
 // app.post('/api/users', function(req, res) {

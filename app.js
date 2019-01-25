@@ -58,8 +58,8 @@ lineReader.on('line', function (line) {
 })
 
 
-//https.createServer(options, app).listen(1234);
-app.listen(port)
+//var server = https.createServer(options, app).listen(1234);
+var server = app.listen(port)
 
 var fs = require('fs');
 var util = require('util');

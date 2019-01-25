@@ -2,7 +2,7 @@
 
 ![](https://img.shields.io/node/v/v.svg) ![](https://img.shields.io/badge/license-MIT-lightgray.svg) ![](https://img.shields.io/badge/version-1.0.0-yellow.svg) ![](https://img.shields.io/badge/build-passing-green.svg)
 
-> A Microbial Information Tool. 
+> A Microbial Information Tool for scientific informational use. 
 
 ---
 
@@ -11,7 +11,9 @@
 These are the sections on the [README.md](https://github.com/Deltasiv/Darwin/blob/master/README.md) file. 
 
 - [Description](#description)
-- [How To Use](#how-to-use)
+- [What can I do with this](#what-can-i-do-with-this)
+- [How to Use](#how-to-use)
+- [Updates](#updates)
 - [References](#references) 
 - [Contributing](#contributing) 
 - [License](#license)
@@ -25,15 +27,15 @@ These are the sections on the [README.md](https://github.com/Deltasiv/Darwin/blo
 
 ## Description 
 
-Darwin is a Microbiological tool in the making that is made to be used with Biological sciences and will have many new viruses, bacterias, fungus and protozoans added. The current version of Darwin supports only a fraction of the microbes that are needed for the final product. 
+Darwin is a Microbiological tool in the making that is made to be used with Biological sciences and will have many new Microbes added. The current version of Darwin supports only a fraction of the microbes that are needed for the final product. What Darwin is exactly is a tool that is used for information lookup and research of Microbes. Anyone can use Darwin to look up information about Microbes or fully participate in scientific discussions about Microbes and Microbioogy. 
 
 If you find a bug on our website be sure to checkout the contact page of the website to tell about the bug or open an issue request here on github. We appreciate every contribution and we try to credit the biggest contributors by placing their name in this readme.
 
 ## What can I do with this?
 
-You can participate in discussions about different viruses, fungus, bacterias and protozoans. You can also make your own posts that people can interact with and discuss. The viewing of posts and bacterias is currently unorganized, we will have to think of some way to organize all the items. 
+You can participate in discussions about different Microbes. You can also make your own posts that people can interact with and discuss. The viewing of posts and Microbes is currently unorganized, a method will have to be implemented to organize all the items. 
 
-In future updates you will be able to organize your own teams for scientific purposes.
+In future updates you will be able to organize your own teams for scientific purposes. 
 
 #### Technologies 
 
@@ -65,6 +67,16 @@ npm i
 #### Files are subject to have their name changed and more files can be included without notice. 
 
 ---
+
+## Updates 
+
+This is where you can see all the new stuff in the next version of Darwin 
+
+Updates to New Version: 
+
+    Organization of the Micorbes 
+
+    Fungi Microbe will be added 
 
 ## References 
 
@@ -102,7 +114,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 --- 
 - Github - [YELLOWHATT](https://github.com/YELLOWHATT)
 - Github - [Hydra](https://github.com/Hydr43301)
-- Github - [Artistic Memes](https://github.com/ArtisticMemes) 
 - Github - [Johk3](https://github.com/Johk3)
 
 --- 
@@ -112,8 +123,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 - YELLOWHATT 
 
 - Hydra 
-
-- Artistic Memes 
 
 - Johk3 
 

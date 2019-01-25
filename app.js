@@ -446,7 +446,7 @@ app.post("/api/contact/", (req, res) =>{
 
     let HelperOptions = {
       from: '"Deltasiv" < legendaryemailbot@gmail.com',
-      to: 'user3610@protonmail.com',
+      to: 'deltasiv@protonmail.com',
       subject: `Customer ${name} contacted you`,
       text: `User ${name} contacted you with the email ${email}\nTitle: ${title}\nMessage: ${message}\nDate: ${date}`
     };

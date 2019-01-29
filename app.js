@@ -58,6 +58,7 @@ lineReader.on('line', function (line) {
 })
 
 
+
 //var server = https.createServer(options, app).listen(1234);
 var server = app.listen(port)
 
@@ -463,6 +464,9 @@ app.post("/api/contact/", (req, res) =>{
   console.log(`Email sent from ${email}`);
 });
 
+app.get('/api/*', function(req, res){
+  res.send('This page doesnt exist : (', 404);
+});
 
 // // create user and send back all users after creation
 // app.post('/api/users', function(req, res) {

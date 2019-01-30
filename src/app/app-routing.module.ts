@@ -10,6 +10,7 @@ import { HomeComponent } from "./home/home.component";
 import { PostPageComponent } from "./post-page/post-page.component";
 import { AboutComponent } from "./about/about.component";
 import { ContactComponent } from "./contact/contact.component";
+import { TeamworkComponent } from "./teamwork/teamwork.component";
 
 const routes: Routes = [
 	{
@@ -47,6 +48,10 @@ const routes: Routes = [
 	{
 		path: "contact",
 		component: ContactComponent
+	},
+	{
+		path: "teamwork",
+		component: TeamworkComponent
 	}
 ];
 

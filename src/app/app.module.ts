@@ -27,6 +27,7 @@ import { SearchComponent } from './search/search.component';
 import { PostPageComponent } from './post-page/post-page.component';
 import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
+import { TeamworkComponent } from './teamwork/teamwork.component';
 
 export function getAuthServiceConfigs() {
   let config = new AuthServiceConfig(
@@ -58,7 +59,8 @@ export function getAuthServiceConfigs() {
     SearchComponent,
     PostPageComponent,
     AboutComponent,
-    ContactComponent
+    ContactComponent,
+    TeamworkComponent
   ],
   imports: [
     BrowserModule,

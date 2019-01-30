@@ -25,7 +25,10 @@
             "assets": [
               "src/favicon.png",
               "src/assets",
-              "src/googlebe4536666828bf2e.html"
+              "src/googlebe4536666828bf2e.html",
+              "src/css",
+              "src/js",
+              "src/img"
             ],
             "styles": [
               "src/styles.scss"

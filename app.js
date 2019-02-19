@@ -37,7 +37,7 @@ console.log(`App is listening on port ${port}`)
 
 var https = require('https');
 var http = require('http');
-// var fs = require('fs');
+var fs = require('fs');
 
 // // This line is from the Node.js HTTPS documentation.
 // var options = {
@@ -58,10 +58,10 @@ lineReader.on('line', function (line) {
 })
 
 
-//https.createServer(options, app).listen(1234);
-app.listen(port)
 
-var fs = require('fs');
+// var server = https.createServer(options, app).listen(1234);
+var server = app.listen(port)
+
 var util = require('util');
 var date = new Date();
 datetime = `${date.getYear()}Y-${date.getMonth()}M-${date.getDay()}D--${date.getHours()}H-${date.getMinutes()}M_`
@@ -446,7 +446,7 @@ app.post("/api/contact/", (req, res) =>{
 
     let HelperOptions = {
       from: '"Deltasiv" < legendaryemailbot@gmail.com',
-      to: 'user3610@protonmail.com',
+      to: 'deltasiv@protonmail.com',
       subject: `Customer ${name} contacted you`,
       text: `User ${name} contacted you with the email ${email}\nTitle: ${title}\nMessage: ${message}\nDate: ${date}`
     };
@@ -463,6 +463,9 @@ app.post("/api/contact/", (req, res) =>{
   console.log(`Email sent from ${email}`);
 });
 
+app.get('/api/*', function(req, res){
+  res.send('This page doesnt exist : (', 404);
+});
 
 // // create user and send back all users after creation
 // app.post('/api/users', function(req, res) {

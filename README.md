@@ -8,7 +8,7 @@
 
 ### Table of Contents 
 
-These are the sections on the [README.md](https://github.com/Deltasiv/Darwin/blob/master/README.md) file. 
+These are the sections on the [README.md](https://github.com/Johk3/Darwin/blob/master/README.md) file. 
 
 - [Description](#description)
 - [What can I do with this](#what-can-i-do-with-this)
@@ -109,11 +109,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 --- 
 
 ## Author Info 
+---
 
-- Twitter - [Hydra](https://twitter.com/Hydra_3301)
---- 
-- Github - [YELLOWHATT](https://github.com/YELLOWHATT)
-- Github - [Hydra](https://github.com/Hydr43301)
 - Github - [Johk3](https://github.com/Johk3)
 
 --- 
@@ -138,11 +135,7 @@ The current stable version of Darwin is: 1.0.0
 
 If there is a bug please contact us through our social media or email. 
 
-- Email Address: thekoolaidmannn@gmail.com 
-
-- Email Address: hydra3301@protonmail.com 
-
-- [Discord Link](https://discord.gg/EmUedu)
+- Email Address: johkmr@gmail.com
 
 --- 
 
